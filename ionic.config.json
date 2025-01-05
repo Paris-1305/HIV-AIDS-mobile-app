@@ -1,0 +1,7 @@
+{
+  "name": "HIVproject",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
