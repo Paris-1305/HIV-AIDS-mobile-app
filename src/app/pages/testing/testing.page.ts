@@ -1,24 +1,22 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent,IonHeader, IonTitle,IonSpinner, IonToolbar } from '@ionic/angular/standalone';import { catchError, of, Subscription, tap, throwError, timer } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { IonContent, IonSpinner, IonCardContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { ContentService } from 'src/app/services/content.service';
+import { UserService } from 'src/app/services/user.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-
 @Component({
-  selector: 'app-prevention',
-  templateUrl: './prevention.page.html',
-  styleUrls: ['./prevention.page.scss'],
+  selector: 'app-testing',
+  templateUrl: './testing.page.html',
+  styleUrls: ['./testing.page.scss'],
   standalone: true,
-  providers:[HttpClient,ContentService,UserService],
-  imports: [IonContent, IonHeader, IonTitle, IonSpinner,HttpClientModule,
-    IonToolbar,  CommonModule, FormsModule]
+  providers: [HttpClient, ContentService, UserService],
+  imports: [IonContent, IonHeader, IonTitle, IonSpinner,  HttpClientModule,
+    IonToolbar, CommonModule, FormsModule]
 })
+export class TestingPage implements OnInit,OnDestroy {
 
-export class PreventionPage implements OnInit, OnDestroy {
   content: any = null; // Dynamic content
   private startTime!: number;
   private pageId = 'prevention'; // Unique identifier for the page
@@ -32,8 +30,8 @@ export class PreventionPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.startTime = Date.now();
-    //this.user=this.userService.trackClick()
     this.loadContent();
+    //this.user=this.userService.trackClick()
   }
 
   // Load dynamic content from the database

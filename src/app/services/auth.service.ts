@@ -63,4 +63,12 @@ export class AuthService {
     return localStorage.getItem(this.userIdKey);
   }
 
+  //Get user profile
+  getUserProfile(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${userId}`);
+  }
+  getAuthenticatedUserId(): string | null {
+    // Logic to fetch the user ID from local storage, session, or token
+    return localStorage.getItem('userId');
+  }
 }

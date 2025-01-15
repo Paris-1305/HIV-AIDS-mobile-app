@@ -1,25 +1,23 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent,IonHeader, IonTitle,IonSpinner, IonToolbar } from '@ionic/angular/standalone';import { catchError, of, Subscription, tap, throwError, timer } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { IonContent, IonHeader, IonSpinner,
+   IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { ContentService } from 'src/app/services/content.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { UserService } from 'src/app/services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  selector: 'app-prevention',
-  templateUrl: './prevention.page.html',
-  styleUrls: ['./prevention.page.scss'],
+  selector: 'app-hivbasics',
+  templateUrl: './hivbasics.page.html',
+  styleUrls: ['./hivbasics.page.scss'],
   standalone: true,
-  providers:[HttpClient,ContentService,UserService],
-  imports: [IonContent, IonHeader, IonTitle, IonSpinner,HttpClientModule,
-    IonToolbar,  CommonModule, FormsModule]
+  providers:[ContentService,UserService],
+  imports: [IonContent, IonHeader, IonTitle, IonSpinner, HttpClientModule,
+    IonToolbar, CommonModule, FormsModule]
 })
-
-export class PreventionPage implements OnInit, OnDestroy {
-  content: any = null; // Dynamic content
+export class HIVBasicsPage implements OnInit, OnDestroy {
+content: any = null; // Dynamic content
   private startTime!: number;
   private pageId = 'prevention'; // Unique identifier for the page
 
@@ -75,4 +73,6 @@ export class PreventionPage implements OnInit, OnDestroy {
       error: (err) => console.error('Failed to log time spent', err),
     });
   }
+  
+
 }

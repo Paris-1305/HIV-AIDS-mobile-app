@@ -5,11 +5,13 @@ import { IonContent,IonLabel,IonInput, IonButton, IonCard,IonCardContent,IonCard
   IonHeader, IonTitle,IonCardTitle, IonToolbar,IonItem } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  providers:[AuthService,HttpClient,],
   standalone: true,
   imports: [IonContent,IonItem,IonLabel, IonInput, IonButton, IonCard,IonCardHeader,
    IonCardContent, IonHeader, IonTitle, IonCardTitle, CommonModule, FormsModule]
@@ -17,10 +19,13 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
-  authService: any;
   router: any;
+  authService: any;
+ 
 
-  constructor() {}
+  constructor(
+   
+  ) {}
   ngOnInit(): void {
     // You can add additional initialization logic here if needed
   }

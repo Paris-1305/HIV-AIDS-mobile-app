@@ -22,4 +22,20 @@ export const routes: Routes = [
     path: 'prevention',
     loadComponent: () => import('./pages/prevention/prevention.page').then( m => m.PreventionPage)
   },
+  {
+    path: 'treatment',
+    loadComponent: () => import('./pages/treatment/treatment.page').then( m => m.TreatmentPage)
+  },
+  {
+    path: 'hivbasics',
+    loadComponent: () => import('./pages/hivbasics/hivbasics.page').then( m => m.HIVBasicsPage)
+  },
+  {
+    path: 'testing',
+    loadComponent: () => import('./pages/testing/testing.page').then( m => m.TestingPage)
+  },
+  {
+    path: 'recommendation',
+    loadComponent: () => import('./pages/recommendation/recommendation.page').then( m => m.RecommendationPage)
+  },
 ];
