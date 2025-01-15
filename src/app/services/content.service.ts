@@ -28,4 +28,8 @@ export class ContentService {
   getPageContent(pageId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${pageId}`);
   }
+
+  getAllPages(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
 }
