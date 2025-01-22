@@ -1,24 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Prevention</ion-title>
+    <ion-title>{{ content?.title || 'Prevention' }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
- <!-----<ng-container *ngIf="content; else loading">
-    <div *ngFor="let item of content.items">>
-     <h2>{{ item.title }}</h2>
-      <p>{{ item.description }}</p>
-      <a href="{{ item.link }}" (click)="trackClick($event, item.id)">
-        {{ item.linkText }}
-      </a>
-    These are some contents under prevention
-    </div>
-  </ng-container>---->
+  <!-- Show loading spinner while the content is being fetched -->
+  <ng-container *ngIf="content; else loading">
+    <div>
+      <h2>{{ content.title }}</h2>
+      <p>{{ content.description }}</p>
 
+      <!-- Display links if they exist -->
+      <div *ngIf="content.links && content.links.length > 0">
+        <a *ngFor="let link of content.links" [href]="link" (click)="trackClick($event, content.id)">
+          {{ link }}
+        </a>
+      </div>
+
+      <!-- If no links, show a message -->
+      <div *ngIf="!content.links || content.links.length === 0">
+        <p>No links available.</p>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Loading Spinner Template -->
   <ng-template #loading>
     <ion-spinner></ion-spinner>
- </ng-template>
-  <h1>Testing page</h1>
+  </ng-template>
 </ion-content>
-
