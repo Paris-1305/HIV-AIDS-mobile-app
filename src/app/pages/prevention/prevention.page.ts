@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent,IonHeader, IonTitle,IonSpinner, IonToolbar } from '@ionic/angular/standalone';import { catchError, of, Subscription, tap, throwError, timer } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router'
 import { ContentService } from 'src/app/services/content.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpService } from 'src/app/services/http.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   templateUrl: './prevention.page.html',
   styleUrls: ['./prevention.page.scss'],
   standalone: true,
-  providers:[HttpClient,ContentService,UserService],
+  providers:[HttpClient,ContentService,UserService, HttpService],
   imports: [IonContent, IonHeader, IonTitle, IonSpinner,HttpClientModule,
     IonToolbar,  CommonModule, FormsModule]
 })
@@ -21,58 +22,105 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 export class PreventionPage implements OnInit, OnDestroy {
   content: any = null; // Dynamic content
   private startTime!: number;
-  private pageId = 'prevention'; // Unique identifier for the page
+  private pageId: number | null = null;  // Declare pageId dynamically
+ // Unique identifier for the page
 
   constructor(
     private contentService: ContentService,
-    private userService: UserService
+    private userService: UserService,
+    private httpService: HttpService,
+    private route: ActivatedRoute
+
   ) {
   
   }
 
   ngOnInit() {
     this.startTime = Date.now();
-    //this.user=this.userService.trackClick()
     this.loadContent();
+     // Get page ID from the route
+  this.route.queryParams.subscribe(params => {
+    this.pageId = params['id']; // Capture the 'id' query parameter
+    if (this.pageId) {
+      this.loadContent();
+    } else {
+      console.error('No page ID found.');
+    }
+  });
   }
 
   // Load dynamic content from the database
   
-  loadContent() {
-    this.contentService.getPageContent(this.pageId).subscribe({
-      next: (response) => {
-        this.content = response;
-      },
-      error: (err) => {
-        console.error('Failed to fetch content', err);
-      },
-    });
+  // async loadContent() {
+  //   try {
+  //     const pageData = await this.httpService.getCurrentPageId();  // Fetch page ID dynamically from backend
+  //     if (pageData && pageData.id) {
+  //       const response = await this.httpService.getPageContent(pageData.id);
+  //       this.content = response;
+  //       console.log('Content loaded:', this.content);
+  //     } else {
+  //       console.error('No page ID returned from server.');
+  //     }
+  //   } catch (err) {
+  //     console.error('Error fetching page ID:', err);
+  //   }
+  // }
+
+  async loadContent() {
+    try {
+      if (!this.pageId) {
+        console.error('Page ID is not set.');
+        return;
+      }
+  
+      console.log('Fetching content for page ID:', this.pageId);
+  
+      const response = await this.httpService.getPageContent(this.pageId);  // Fetch content based on pageId
+      this.content = response;  // Set the fetched content
+      console.log('Content loaded:', this.content);
+    } catch (err) {
+      console.error('Error fetching page content:', err);
+    }
   }
 
   // Track clicks and interactions
   trackClick(event: Event, contentId: string) {
     this.userService.logInteraction({
       type: 'click',
-      pageId: this.pageId,
+      pageId: this.pageId,  // Consider making this dynamic if needed
       contentId: contentId,
       timestamp: new Date().toISOString(),
-    }).subscribe({
-      next: () => console.log('Interaction logged'),
-      error: (err) => console.error('Failed to log interaction', err),
+    })
+    .then(() => {
+      console.log('Interaction logged');
+    })
+    .catch((err: any) => {
+      console.error('Failed to log interaction', err);
     });
   }
+  
 
   // Log time spent when leaving the page
   ngOnDestroy() {
+    if (!this.pageId) {
+      console.error('Page ID not set, skipping interaction logging.');
+      return;
+    }
+    
     const timeSpent = (Date.now() - this.startTime) / 1000; // Time in seconds
     this.userService.logInteraction({
       type: 'time_spent',
-      pageId: this.pageId,
+      pageId: this.pageId,  // Use dynamically fetched page ID
       duration: timeSpent,
       timestamp: new Date().toISOString(),
-    }).subscribe({
-      next: () => console.log('Time spent logged'),
-      error: (err) => console.error('Failed to log time spent', err),
+    })
+    .then(() => {
+      console.log('Time spent logged');
+    })
+    .catch((err: any) => {
+      console.error('Failed to log time spent', err);
     });
   }
 }
+
+

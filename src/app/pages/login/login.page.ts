@@ -1,52 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent,IonLabel,IonInput, IonButton, IonCard,IonCardContent,IonCardHeader,
-  IonHeader, IonTitle,IonCardTitle, IonToolbar,IonItem } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-
+import { IonContent,IonCardContent,IonItem,IonButton,
+  IonLabel,IonCard,IonCardHeader,IonCardTitle } from '@ionic/angular/standalone'
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
-  providers:[AuthService,HttpClient,],
   standalone: true,
-  imports: [IonContent,IonItem,IonLabel, IonInput, IonButton, IonCard,IonCardHeader,
-   IonCardContent, IonHeader, IonTitle, IonCardTitle, CommonModule, FormsModule]
+  providers:[AuthService],
+  styleUrls: ['./login.page.scss'],
+   imports: [IonContent,IonCard,IonCardTitle,IonCardContent,
+ IonItem,IonButton, IonLabel, IonCardHeader, CommonModule, FormsModule]
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   email: string = '';
   password: string = '';
-  router: any;
-  authService: any;
- 
 
-  constructor(
-   
-  ) {}
-  ngOnInit(): void {
-    // You can add additional initialization logic here if needed
-  }
-  login(): void {
-    // Call the login method in the authService with email and password
-    if (this.email && this.password) {
-      this.authService.login(this.email, this.password).subscribe(
-        (response: { token: any; }) => {
-          if (response.token) {
-            this.authService.saveToken(response.token);
-            this.router.navigate(['/home']);
-          } else {
-            console.log('Invalid credentials');
-          }
-        },
-        (error: any) => {
-          console.log('Login error:', error);
-        }
-      );
-    } else {
-      console.log('Please fill in both email and password');
+  constructor(private authService: AuthService) { }
+
+  async loginUser() {
+    try {
+      const response = await this.authService.login(this.email, this.password);
+      console.log('Login successful', response);
+    } catch (error) {
+      console.error('Login failed', error);
     }
   }
 }
+

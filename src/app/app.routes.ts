@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-
+import { PreventionPage } from './pages/prevention/prevention.page';
 export const routes: Routes = [
   {
     path: '',
@@ -18,12 +18,9 @@ export const routes: Routes = [
     path: 'register',
     loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
   },
+  { path: 'pages', component: PreventionPage },
   {
-    path: 'prevention',
-    loadComponent: () => import('./pages/prevention/prevention.page').then( m => m.PreventionPage)
-  },
-  {
-    path: 'treatment',
+    path: 'pages',
     loadComponent: () => import('./pages/treatment/treatment.page').then( m => m.TreatmentPage)
   },
   {
@@ -33,9 +30,5 @@ export const routes: Routes = [
   {
     path: 'testing',
     loadComponent: () => import('./pages/testing/testing.page').then( m => m.TestingPage)
-  },
-  {
-    path: 'recommendation',
-    loadComponent: () => import('./pages/recommendation/recommendation.page').then( m => m.RecommendationPage)
   },
 ];

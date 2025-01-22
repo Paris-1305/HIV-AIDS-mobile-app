@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import axios from 'axios';
 import { catchError, Observable, of } from 'rxjs';
 
 @Injectable({
@@ -25,8 +26,19 @@ export class ContentService {
   }
 
   // Fetch content dynamically for a specific page
-  getPageContent(pageId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${pageId}`);
+  async getPageContent(pageName: string): Promise<any> {
+    try {
+      // Replace with your backend API URL
+      const response = await axios.get(`http://localhost:3000/pages`, {
+        params: {
+          page: pageName, // Query parameter for the page (prevention, treatment, etc.)
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching page content', error);
+      throw error;
+    }
   }
 
   getAllPages(): Observable<any> {
