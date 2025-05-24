@@ -5,17 +5,76 @@
           <ion-card-title color="primary">HIV/AIDS app</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input  [(ngModel)]="email"  name="email" type="email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input [(ngModel)]="password" name="password" type="password"></ion-input>
-          </ion-item>
-          <ion-button color="primary" size="full" (click)="loginUser()" type="submit">Login</ion-button>
-          <ion-button color="success" fill="clear" size="full">Register</ion-button>
+          <form (submit)="loginUser()">
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input [(ngModel)]="email"  name="email" type="email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+            </ion-item>
+            <ion-button color="primary" size="full"  type="submit">Login</ion-button>
+            <p (click)="goToForgotPassword()" class="forgot-password">Forgot Password?</p>
+            <ion-button color="success" fill="clear" size="full" (click)="goToRegister()">Register</ion-button>
+          </form>
         </ion-card-content>
       </ion-card>
   </div> 
 </ion-content>
+
+<!-- <ion-content>
+  <div class="flex-center">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title color="primary">HIV/AIDS App</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            [ngClass]="{ 'input-invalid': emailInvalid && formSubmitted }"
+          ></ion-input>
+        </ion-item>
+     
+        <div *ngIf="emailInvalid && formSubmitted">
+          <ion-text color="danger">{{ emailError }}</ion-text>
+        </div>
+
+      
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            [ngClass]="{ 'input-invalid': passwordInvalid && formSubmitted }"
+          ></ion-input>
+        </ion-item>
+        
+        <div *ngIf="passwordInvalid && formSubmitted">
+          <ion-text color="danger">{{ passwordError }}</ion-text>
+        </div>
+
+      
+        <ion-button color="primary" size="full" (click)="loginUser()" type="submit">Login</ion-button>
+        <ion-button color="success" fill="clear" size="full" (click)="goToRegister()">Register</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content> -->
+
+<!-- <form (submit)="loginUser()">
+  <ion-label for="email">Email:</ion-label>
+  <ion-input type="email" id="email" name="email" [(ngModel)]="email" required />
+
+  <ion-label for="password">Password:</ion-label>
+  <ion-input type="password" id="password" name="password" [(ngModel)]="password" required />
+
+  <ion-button type="submit">Login</ion-button>
+</form> -->
+

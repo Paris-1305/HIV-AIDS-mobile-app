@@ -1,28 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://your-backend-api.com'; // Replace with your actual API URL
+  private apiUrl = 'http://localhost:8000'; // Replace with your actual API URL
 
-  constructor() {}
+  constructor(private http: HttpClient) { }
 
   // Log user interactions such as clicks and time spent
-  async logInteraction(interaction: any): Promise<any> {
-    try {
-      const response = await axios.post(`${this.apiUrl}/interactions`, interaction);
-      return response.data;
-    } catch (error) {
-      console.error('Error logging interaction:', error);
-      throw error;
-    }
+  logInteraction(interaction: any): Promise<any> {
+    return axios.post(`${this.apiUrl}/log-interaction`, interaction)
+      .then(response => response.data)
+      .catch(error => {
+        console.error('Error logging interaction:', error);
+        throw error;
+      });
   }
- 
+  
   // constructor(private http: HttpClient) {}
 
   // getDynamicContent(contentType: string): Observable<any> {

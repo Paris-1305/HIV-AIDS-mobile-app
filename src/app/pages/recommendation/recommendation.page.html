@@ -1,13 +1,11 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Recommendation</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Recommendation</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content> -->
+<ion-card *ngFor="let page of recommendedPages">
+  <ion-card-header>
+    <ion-card-title>{{ page.title }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{ page.description }}</p>
+    <ion-button [routerLink]="['/page', page.id]" color="primary">
+      View Page
+    </ion-button>
+  </ion-card-content>
+</ion-card>

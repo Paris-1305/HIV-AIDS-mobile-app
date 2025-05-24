@@ -1,0 +1,36 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Find HIV/AIDS Resources</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="userLocation" class="location-info">
+    <h3>Your Current Location</h3>
+    <p>Latitude: {{ userLocation.latitude }}</p>
+    <p>Longitude: {{ userLocation.longitude }}</p>
+  </div>
+
+  <div class="map-container" *ngIf="userLocation">
+    <div id="map" style="height: 400px; width: 100%;"></div>
+  </div>
+
+  <div *ngIf="!userLocation" class="loading">
+    <p>Loading your location...</p>
+  </div>
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Location Map</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Search Input -->
+  <input class="search-input" type="text" [(ngModel)]="searchQuery" placeholder="Search for hospitals or communities" (keyup.enter)="searchPlaces(searchQuery)" />
+
+  <!-- Map Container -->
+  <div id="map" style="height: 100%;"></div>
+</ion-content>
+

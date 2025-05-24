@@ -1,85 +1,97 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <form (ngSubmit)="register()">
- <ion-card>
-  <ion-card-header>
-    <ion-card-title>Fill in the information  </ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    <ion-item>
-      <ion-label  position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"   name="password" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Gender</ion-label>
-      <ion-select [(ngModel)]="gender"  name="gender" required>
-        <ion-select-option value="male">Male</ion-select-option>
-        <ion-select-option value="female">Female</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Age</ion-label>
-      <ion-select [(ngModel)]="age"  name="age" required>
-        <ion-select-option value=""> less 14 </ion-select-option>
-        <ion-select-option value="female">14-17</ion-select-option>
-        <ion-select-option value="female">17-21</ion-select-option>
-        <ion-select-option value="female">21-25</ion-select-option>
-        <ion-select-option value="female">26-35</ion-select-option>
-        <ion-select-option value="female">35+</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Education Level</ion-label>
-      <ion-select [(ngModel)]="educationLevel"  name="educationLevel" required>
-        <ion-select-option value="secondary">Never been in school</ion-select-option>
-        <ion-select-option value="highschool">primary</ion-select-option>
-        <ion-select-option value="bachelor">High school</ion-select-option>
-        <ion-select-option value="masters">graduation level</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Have you ever had sex</ion-label>
-      <ion-select [(ngModel)]="sexualActivity"  name="sexualActivity"   require>
-        <ion-select-option value="yes">yes</ion-select-option>
-        <ion-select-option value="no">no</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Marital Status</ion-label>
-      <ion-select [(ngModel)]="maritalStatus" name="maritalStatus"  required>
-        <ion-select-option value="Married">Married</ion-select-option>
-        <ion-select-option value="Unmarried">Unmarried</ion-select-option>
-        <ion-select-option value="divorce">divorce</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">HIV testing History</ion-label>
-      <ion-select [(ngModel)]="testingHistory" name="testing" required>
-        <ion-select-option value="never tested">Never tested</ion-select-option>
-        <ion-select-option value="tested once">Tested once </ion-select-option>
-        <ion-select-option value="3-6 months">3-6 months ago</ion-select-option>
-        <ion-select-option value="more than a year">more than 1 year</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">HIV Health Status</ion-label>
-      <ion-select [(ngModel)]="hivStatus" name="hivStatus"   required>
-        <ion-select-option value="excellent">positive</ion-select-option>
-        <ion-select-option value="good">Negative</ion-select-option>
-        <ion-select-option value="fair">No idea</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-card-content>
- </ion-card>
- <ion-button expand="block" type="submit">Register</ion-button>
- </form>
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Fill in the information</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" formControlName="email" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" formControlName="password" required></ion-input>
+          <div *ngIf="registerForm.get('password')?.hasError('passwordTooShort') && registerForm.get('password')?.touched">
+            <ion-text color="danger">Password must be at least 6 characters long.</ion-text>
+          </div>
+          <div *ngIf="registerForm.get('password')?.hasError('passwordMissingUpperCase') && registerForm.get('password')?.touched">
+            <ion-text color="danger">Password must contain at least one uppercase letter.</ion-text>
+          </div>
+          <div *ngIf="registerForm.get('password')?.hasError('passwordMissingSpecialChar') && registerForm.get('password')?.touched">
+            <ion-text color="danger">Password must contain at least one special character.</ion-text>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Gender</ion-label>
+          <ion-select formControlName="gender" required>
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Age</ion-label>
+          <ion-select formControlName="age" required>
+            <ion-select-option value="less 14">Less than 14</ion-select-option>
+            <ion-select-option value="14-17">14-17</ion-select-option>
+            <ion-select-option value="17-21">17-21</ion-select-option>
+            <ion-select-option value="21-25">21-25</ion-select-option>
+            <ion-select-option value="26-35">26-35</ion-select-option>
+            <ion-select-option value="35+">35+</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Education Level</ion-label>
+          <ion-select formControlName="educationLevel" required>
+            <ion-select-option value="never been in school">Never been in school</ion-select-option>
+            <ion-select-option value="Primary School Incomplete">Primary School Incomplete</ion-select-option>
+            <ion-select-option value="Primary School Complete">Primary School Complete</ion-select-option>
+            <ion-select-option value="Secondary School Incomplete">Secondary School Incomplete</ion-select-option>
+            <ion-select-option value="Secondary school complete">Secondary school complete</ion-select-option>
+            <ion-select-option value="graduation level">Graduation level</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Have you ever had sex</ion-label>
+          <ion-select formControlName="sexualActivity">
+            <ion-select-option value="yes">Yes</ion-select-option>
+            <ion-select-option value="no">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Marital Status</ion-label>
+          <ion-select formControlName="maritalStatus" required>
+            <ion-select-option value="Married">Married</ion-select-option>
+            <ion-select-option value="Unmarried">Unmarried</ion-select-option>
+            <ion-select-option value="divorce">Divorce</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">HIV Testing History</ion-label>
+          <ion-select formControlName="testingHistory" required>
+            <ion-select-option value="never tested">Never tested</ion-select-option>
+            <ion-select-option value="tested once">Tested once</ion-select-option>
+            <ion-select-option value="3-6 months">3-6 months ago</ion-select-option>
+            <ion-select-option value="more than a year">More than 1 year</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">HIV Health Status</ion-label>
+          <ion-select formControlName="hivStatus" required>
+            <ion-select-option value="positive">Positive</ion-select-option>
+            <ion-select-option value="negative">Negative</ion-select-option>
+            <ion-select-option value="no idea">No idea</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">Register</ion-button>
+    <ion-button color="success" fill="clear" size="full" (click)="goToLogin()">Login</ion-button>
+  </form>
 </ion-content>

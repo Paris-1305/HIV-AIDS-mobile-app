@@ -1,0 +1,75 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Testing Page</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="content">
+    <h2>{{ content.title }}</h2> 
+    <p>{{ content.description }}</p> 
+    <div *ngIf="content.links && content.links.length > 0">
+        <div *ngFor="let link of content.links">
+          <a [href]="link" target="_blank" rel="noopener noreferrer" (click)="onLinkClick()">
+            {{ link }}
+          </a>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="!content">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+</ion-content> -->
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>HIV Testing Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Loading State -->
+  <div *ngIf="!content" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Loading resources...</p>
+  </div>
+
+  <!-- Content Display -->
+  <div *ngIf="content" class="content-container">
+    <!-- Header Section -->
+    <div class="header">
+      <h1>{{ content.title }}</h1>
+      <ion-chip color="tertiary" *ngIf="content.category">
+        <ion-label>{{ content.category }}</ion-label>
+      </ion-chip>
+    </div>
+
+    <!-- Description -->
+    <div class="description">
+      <p class="content">{{ content.description }}</p>
+    </div>
+
+    <!-- Links Section -->
+    <div *ngIf="content.links?.length" class="links-section">
+      <h3>Helpful Resources</h3>
+      <ion-list lines="none">
+        <ion-item *ngFor="let link of content.links" class="link-item">
+          <ion-icon name="link-outline" slot="start" color="primary"></ion-icon>
+          <a 
+            [href]="link" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            (click)="onLinkClick()"
+            class="resource-link"
+          >
+            {{ getLinkDisplayName(link) }}
+          </a>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <!-- Stats (Demo Only - Optional) -->
+    <div class="stats" *ngIf="user_id">
+      <!-- <ion-note>Time spent: {{ time_spent }} seconds</ion-note> -->
+    </div>
+  </div>
+</ion-content>
