@@ -1,0 +1,267 @@
+// /* Hero Section */
+// .hero-section {
+//     position: relative;
+//     text-align: center;
+//   }
+  
+//   .hero-image {
+//     width: 100%;
+//     height: 250px;
+//     object-fit: cover;
+//     filter: brightness(0.7);
+//   }
+  
+//   .hero-overlay {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     color: white;
+//     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+//   }
+  
+//   /* Quick Access Cards */
+//   ion-card {
+//     text-align: center;
+//     background: #f9f9f9;
+//     border-radius: 15px;
+//     transition: 0.3s;
+//   }
+  
+//   ion-card:hover {
+//     background: #e0f7fa;
+//   }
+  
+//   /* Search Bar */
+//   ion-searchbar {
+//     margin: 15px;
+//   }
+  
+//   /* News Articles */
+//   ion-card img {
+//     width: 100%;
+//     height: 200px;
+//     object-fit: cover;
+//   }
+  
+//   ion-card-header {
+//     text-align: center;
+//   }
+  
+//   ion-button {
+//     margin-top: 10px;
+//   }
+//   ion-card-title{
+//     color:black
+//   }
+  
+ 
+
+/* Global Styles */
+ion-content {
+  --background: #f8f9fa;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+/* Hero Banner */
+.hero-banner {
+  background: linear-gradient(135deg, var(--ion-color-primary), #4a89dc);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  .hero-text {
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin: 0;
+    }
+  }
+}
+
+/* Search Section */
+.search-section {
+  margin-bottom: 24px;
+
+  .custom-searchbar {
+    padding: 0;
+    --border-radius: 12px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .search-results {
+    margin-top: 8px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    
+    ion-item {
+      --padding-start: 16px;
+      --inner-padding-end: 16px;
+    }
+  }
+}
+
+/* Quick Actions */
+.quick-actions {
+  margin-bottom: 24px;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--ion-color-dark);
+  }
+
+  .action-card {
+    height: 100%;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    .card-icon {
+      padding: 16px 0 8px;
+      font-size: 2rem;
+      color: var(--ion-color-primary);
+    }
+
+    ion-card-header {
+      padding: 0 16px 16px;
+
+      ion-card-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/* Recommendations */
+.recommendations-section {
+  margin-bottom: 24px;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--ion-color-dark);
+  }
+
+  .rec-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --border-radius: 12px;
+    margin-bottom: 8px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    h3 {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 0.8rem;
+      color: var(--ion-color-medium);
+    }
+  }
+
+  .disabled-item {
+    opacity: 0.6;
+    --background: var(--ion-color-light);
+    ion-icon, ion-label {
+      color: var(--ion-color-medium);
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    ion-icon {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: var(--ion-color-medium);
+      margin: 0;
+    }
+  }
+}
+
+/* News Section */
+.news-section {
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--ion-color-dark);
+  }
+
+  swiper-container {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding-bottom: 20px;
+  }
+
+  .news-card {
+    margin: 0 8px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    img {
+      height: 160px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    ion-card-header {
+      padding-bottom: 0;
+
+      ion-card-subtitle {
+        color: var(--ion-color-primary);
+        font-weight: 500;
+        font-size: 0.8rem;
+      }
+
+      ion-card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+    }
+
+    ion-card-content {
+      padding-top: 8px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+
+      ion-button {
+        margin-top: 12px;
+      }
+    }
+  }
+}

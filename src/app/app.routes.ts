@@ -3,32 +3,64 @@ import { PreventionPage } from './pages/prevention/prevention.page';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inbox',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
     path: 'loader',
-    loadComponent: () => import('./pages/loader/loader.page').then( m => m.LoaderPage)
+    loadComponent: () => import('./pages/loader/loader.page').then(m => m.LoaderPage)
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
-  },
-  { path: 'pages', component: PreventionPage },
-  {
-    path: 'pages',
-    loadComponent: () => import('./pages/treatment/treatment.page').then( m => m.TreatmentPage)
+    loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
   },
   {
-    path: 'hivbasics',
-    loadComponent: () => import('./pages/hivbasics/hivbasics.page').then( m => m.HIVBasicsPage)
+    path: 'prevention',
+    loadComponent: () => import('./pages/prevention/prevention.page').then(m => m.PreventionPage)
+  },
+
+  {
+    path: 'treatment',
+    loadComponent: () => import('./pages/treatment/treatment.page').then(m => m.TreatmentPage)
+  },
+  {
+    path: 'hiv_basics',
+    loadComponent: () => import('./pages/hivbasics/hivbasics.page').then(m => m.HIVBasicsPage)
   },
   {
     path: 'testing',
-    loadComponent: () => import('./pages/testing/testing.page').then( m => m.TestingPage)
+    loadComponent: () => import('./pages/testing/testing.page').then(m => m.TestingPage)
+  },
+  {
+    path: 'living_with_hiv',
+    loadComponent: () => import('./pages/living-with-hiv/living-with-hiv.page').then(m => m.LivingWithHIVPage)
+  },
+  {
+    path: 'faqsection',
+    loadComponent: () => import('./pages/faqsection/faqsection.page').then(m => m.FAQSectionPage)
+  },
+  {
+    path: 'home',
+    loadComponent: () => import('./pages/home/home.page').then(m => m.HomePage)
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./pages/forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
+  },
+  {
+    path: 'hiv_stigma',
+    loadComponent: () => import('./pages/hivstigma/hivstigma.page').then(m => m.HIVStigmaPage)
+  },
+  {
+    path: 'hivpregnancy',
+    loadComponent: () => import('./pages/hiv/hiv.page').then(m => m.HIVPage)
+  },
+  {
+    path: 'map-page',
+    loadComponent: () => import('./pages/location-page/location-page.page').then( m => m.LocationPagePage)
   },
 ];

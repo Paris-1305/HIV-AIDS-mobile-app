@@ -2,5 +2,13 @@
   <div class="flex-center">
     <ion-spinner name="crescent" color="success"></ion-spinner>
   </div> 
-
+  <!-- <div *ngIf="recommendedPages.length">
+    <h2>Recommended Pages</h2>
+    <ul>
+      <li *ngFor="let page of recommendedPages">
+        <a [href]="'/page/' + page.id">{{ page.title }}</a> (Score: {{ page.similarity | number:'1.2-2' }})
+      </li>
+    </ul>
+  </div> -->
+  
 </ion-content>

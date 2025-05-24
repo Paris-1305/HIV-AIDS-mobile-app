@@ -1,0 +1,165 @@
+<!-- 
+<ion-content>
+  <div class="hero-section">
+    <img src="assets/banner.jpg" class="hero-image">
+    <div class="hero-overlay">
+      <h1>Stay Informed, Stay Healthy</h1>
+      <p>Explore vital information on HIV prevention, testing, and treatment.</p>
+      <ion-button expand="full" color="primary">Get Started</ion-button>
+    </div>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let topic of quickLinks">
+        <ion-card (click)="navigateTo(topic.link, topic.queryParams)">
+          <ion-card-header>
+            <ion-icon [name]="topic.icon" size="large"></ion-icon>
+            <ion-card-title class="topic">{{ topic.title }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-searchbar placeholder="Search topics..." (ionInput)="searchTopics($event)"></ion-searchbar>
+  <ion-list *ngIf="searchResults.length">
+    <ion-item *ngFor="let topic of searchResults" (click)="goToTopic(topic)">
+      {{ topic }}
+    </ion-item>
+  </ion-list>
+
+  <ion-content class="ion-padding">
+    <h2>Recommended for You</h2>
+
+    <ion-list *ngIf="recommendations.length > 0; else noRecommendations">
+        <ion-item *ngFor="let rec of recommendations" (click)="navigateTo(rec.path, rec.queryParams)">
+            <ion-label>
+                <h3>{{ rec.title }}</h3>
+                <p>Click to learn more</p>
+            </ion-label>
+            <ion-icon name="arrow-forward-circle-outline" slot="end"></ion-icon>
+        </ion-item>
+    </ion-list>
+
+    <ng-template #noRecommendations>
+        <p>No recommendations available at the moment.</p>
+    </ng-template>
+</ion-content>
+
+
+  <ion-card *ngFor="let article of featuredArticles">
+    <img [src]="article.image" />
+    <ion-card-header>
+      <ion-card-title>{{ article.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ article.summary }}</p>
+      <ion-button expand="full" color="tertiary" (click)="readMore(article.link)">Read More</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content> -->
+
+
+
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>HIV Health Guide</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="authService.logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="hero-text">
+      <h1>Your HIV Resource Center</h1>
+      <p>Trusted information for prevention, treatment and healthy living</p>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <ion-searchbar 
+      placeholder="Search topics..." 
+      (ionInput)="searchTopics($event)"
+      animated
+      clearIcon="close-circle"
+      class="custom-searchbar">
+    </ion-searchbar>
+    
+    <ion-list *ngIf="searchResults.length" lines="none" class="search-results">
+      <ion-item *ngFor="let topic of searchResults" button (click)="goToTopic(topic)">
+        <ion-icon name="search-outline" slot="start"></ion-icon>
+        <ion-label>{{ topic }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Quick Actions Grid -->
+  <ion-grid class="quick-actions">
+    <h2>Quick Access</h2>
+    <ion-row>
+      <ion-col size="6" *ngFor="let topic of quickLinks">
+        <ion-card button (click)="navigateTo(topic.link, topic.queryParams)" class="action-card">
+          <div class="card-icon">
+            <ion-icon [name]="topic.icon"></ion-icon>
+          </div>
+          <ion-card-header>
+            <ion-card-title>{{ topic.title }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- Personalized Recommendations -->
+  <div class="recommendations-section">
+    <h2>Recommended For You</h2>
+    <ion-list lines="none" *ngIf="recommendations.length > 0; else noRecs">
+      <ion-item *ngFor="let rec of recommendations" 
+                button 
+                (click)="rec.queryParams.id ? navigateTo(rec.path, rec.queryParams) : null"
+                [class.disabled-item]="!rec.queryParams.id"
+                class="rec-item">
+        <ion-icon name="sparkles" slot="start" [color]="rec.queryParams.id ? 'warning' : 'medium'"></ion-icon>
+        <ion-label>
+          <h3>{{ rec.title }}</h3>
+          <p>{{ rec.queryParams.id ? 'Personalized content' : 'Coming soon' }}</p>
+        </ion-label>
+        <ion-icon name="chevron-forward" slot="end" *ngIf="rec.queryParams.id"></ion-icon>
+      </ion-item>
+    </ion-list>
+    <ng-template #noRecs>
+      <div class="empty-state">
+        <ion-icon name="book" color="medium"></ion-icon>
+        <p>Your recommendations will appear here</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- News Section with Swiper -->
+  <div class="news-section">
+    <h2>Latest Updates</h2>
+    <swiper-container [init]="false" #swiper [config]="swiperConfig">
+      <swiper-slide *ngFor="let article of featuredArticles">
+        <ion-card button (click)="readMore(article.link)" class="news-card">
+          <img [src]="article.image" alt="Article image"/>
+          <ion-card-header>
+            <ion-card-subtitle>Latest Research</ion-card-subtitle>
+            <ion-card-title>{{ article.title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p>{{ article.summary }}</p>
+            <ion-button expand="block" fill="outline">Read More</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </swiper-slide>
+    </swiper-container>
+  </div>
+</ion-content>
