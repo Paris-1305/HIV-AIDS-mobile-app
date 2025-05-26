@@ -63,4 +63,5 @@ export const routes: Routes = [
     path: 'map-page',
     loadComponent: () => import('./pages/location-page/location-page.page').then( m => m.LocationPagePage)
   },
+  { path: '**', redirectTo: 'home' }  // wildcard route to handle unknown paths
 ];
