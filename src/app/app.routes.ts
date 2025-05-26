@@ -56,7 +56,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/hivstigma/hivstigma.page').then(m => m.HIVStigmaPage)
   },
   {
-    path: 'hivpregnancy',
+    path: 'hiv',
     loadComponent: () => import('./pages/hiv/hiv.page').then(m => m.HIVPage)
   },
   {
