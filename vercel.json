@@ -1,11 +1,17 @@
 
-  {
+{
     "buildCommand": "npm install --legacy-peer-deps && npm run build",
     "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "www" } }
-  ]
+      { "source": "/(.*)", "destination": "/index.html" }
+    ],
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "dist/hiv-aids-mobile-app"
+        }
+      }
+    ]
   }
   
