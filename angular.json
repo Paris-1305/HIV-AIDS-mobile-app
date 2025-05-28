@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/hiv-aids-mobile-app/browser",
+           "outputPath": "dist/hiv-aids-mobile-app/browser",
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"
