@@ -1,9 +1,6 @@
 
 {
     "buildCommand": "npm install --legacy-peer-deps && npm run build",
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/index.html" }
-    ],
     "builds": [
       {
         "src": "package.json",
@@ -11,6 +8,12 @@
         "config": {
           "distDir": "dist/hiv-aids-mobile-app"
         }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
       }
     ]
   }
