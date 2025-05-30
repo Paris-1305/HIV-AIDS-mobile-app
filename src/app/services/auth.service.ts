@@ -18,6 +18,7 @@ export class AuthService {
       headers: {
         'Content-Type': 'application/json',
       },
+      withCredentials: true 
     });
 
     // Add interceptor to include authorization token if available
@@ -53,7 +54,7 @@ export class AuthService {
         marital_status,
         testing_history,
         hiv_status,
-      });
+      }, { withCredentials: true } );
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
