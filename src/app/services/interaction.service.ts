@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class InteractionService {
-  private apiUrl = 'http://localhost:8000/interactions';
-
+  //private apiUrl = 'https://hiveducationalmobilebackend.onrender.com/interactions';
+   private apiUrl="https://hiveducationalmobilebackend.onrender.com"
   constructor(private http: HttpClient) {}
 
   updateInteraction(userId: string, pageId: number, timeSpent: number, linksClicked: number) {

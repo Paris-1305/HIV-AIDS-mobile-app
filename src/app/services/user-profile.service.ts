@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserProfileService {
 
-  private apiUrl = 'https://your-api-url.com/api/userProfiles';
+  private apiUrl = 'https://hiveducationalmobilebackend.onrender.com/userProfiles';
 
   constructor(private http: HttpClient) {}
 

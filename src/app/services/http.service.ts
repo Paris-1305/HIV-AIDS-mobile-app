@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class HttpService {
   private axiosInstance: AxiosInstance;
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'https://hiveducationalmobilebackend.onrender.com';
   constructor() {
     this.axiosInstance = axios.create({
       baseURL: this.apiUrl,

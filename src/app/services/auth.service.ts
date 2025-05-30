@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService { 
-  private apiUrl = 'http://localhost:8000'; // Backend URL
+  //http://localhost:8000
+  private apiUrl = 'https://hiveducationalmobilebackend.onrender.com'; // Backend URL
   private userIdKey = 'userId'; // Key for storing user ID
   private axiosInstance: AxiosInstance;
 
@@ -90,7 +91,7 @@ export class AuthService {
   
   async login(email: string, password: string): Promise<any> {
     try {
-      const response = await axios.post('http://localhost:8000/login', { email, password });
+      const response = await axios.post('/login', { email, password });
   
       console.log("Backend response:", response);
       console.log("Response data:", response.data);
@@ -154,14 +155,24 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/reset-password`, { email });
   }
 
-  async requestPasswordReset(email: string): Promise<void> {
-    try {
-      const response = await axios.post(`${this.apiUrl}/forgot-password`, { email });
-      console.log('Password reset request successful:', response.data);
-    } catch (error) {
-      console.error('Error requesting password reset:', error);
-      throw error;
-    }
+  // async requestPasswordReset(email: string): Promise<void> {
+  //   try {
+  //     const response = await axios.post(`${this.apiUrl}/forgot-password`, { email });
+  //     console.log('Password reset request successful:', response.data);
+  //   } catch (error) {
+  //     console.error('Error requesting password reset:', error);
+  //     throw error;
+  //   }
+  // }
+  // REQUEST PASSWORD RESET using axiosInstance
+async requestPasswordReset(email: string): Promise<void> {
+  try {
+    const response = await this.axiosInstance.post('/forgot-password', { email });
+    console.log('Password reset request successful:', response.data);
+  } catch (error) {
+    console.error('Error requesting password reset:', error);
+    throw error;
   }
-  
+}
+
 }

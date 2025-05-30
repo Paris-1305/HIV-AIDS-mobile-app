@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class RecommendationService {
   
-  private apiUrl = 'http://localhost:8000/recommendations';
-
+ // private apiUrl = 'http://localhost:8000/recommendations';
+   private apiUrl="https://hiveducationalmobilebackend.onrender.com/recommendations"
   constructor(private http: HttpClient) {}
 
   getRecommendedPages(userId: number): Observable<any[]> {

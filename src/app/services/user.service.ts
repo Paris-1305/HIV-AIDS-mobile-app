@@ -7,7 +7,7 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000'; // Replace with your actual API URL
+  private apiUrl = 'https://hiveducationalmobilebackend.onrender.com'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) { }
 

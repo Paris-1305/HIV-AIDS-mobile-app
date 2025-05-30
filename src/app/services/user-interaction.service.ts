@@ -6,7 +6,7 @@ import { AuthService } from './auth.service'; // Import AuthService
   providedIn: 'root'
 })
 export class UserInteractionService {
-  private apiUrl = 'http://localhost:8000/user-interactions'; // Backend URL
+  private apiUrl = 'https://hiveducationalmobilebackend.onrender.com/user-interactions'; // Backend URL
   private startTime: number = 0; // To track time spent
   public clicks: number = 0; // To track links clicked
   private currentPageId: number = 0; // Track current page ID
