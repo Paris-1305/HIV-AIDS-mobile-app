@@ -91,7 +91,9 @@ export class AuthService {
   
   async login(email: string, password: string): Promise<any> {
     try {
-      const response = await axios.post('https://hiveducationalmobilebackend.onrender.com/login', { email, password });
+      const response = await axios.post('https://hiveducationalmobilebackend.onrender.com/login', { email, password },
+        { withCredentials: true }
+      );
   
       console.log("Backend response:", response);
       console.log("Response data:", response.data);
