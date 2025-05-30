@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent,IonHeader, IonTitle,IonList, IonItem, IonLabel, 
-IonIcon,IonChip, IonButton, IonSpinner, IonToolbar } from '@ionic/angular/standalone';import { catchError, of, Subscription, tap, throwError, timer } from 'rxjs';
+import {
+  IonContent, IonHeader, IonTitle, IonList, IonItem, IonLabel,
+  IonIcon, IonChip, IonButton, IonSpinner, IonToolbar
+} from '@ionic/angular/standalone'; import { catchError, of, Subscription, tap, throwError, timer } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute } from '@angular/router'
 import { ContentService } from 'src/app/services/content.service';
@@ -17,9 +19,11 @@ import { ViewWillLeave } from '@ionic/angular';
   templateUrl: './testing.page.html',
   styleUrls: ['./testing.page.scss'],
   standalone: true,
-  providers:[HttpClient,ContentService,UserService, HttpService,AuthService,UserInteractionService],
-  imports: [IonContent, IonHeader, IonTitle, IonSpinner,HttpClientModule,IonList,IonItem,
- IonIcon,IonChip, IonButton,IonLabel,  IonToolbar,  CommonModule, FormsModule]
+  providers: [HttpClient, ContentService, UserService, HttpService, AuthService, UserInteractionService],
+  imports: [IonContent, IonHeader, IonTitle, IonSpinner, HttpClientModule, IonList, IonItem,
+    IonIcon, IonChip, IonLabel, IonToolbar, CommonModule, FormsModule
+    // ,IonButton
+  ]
 })
 
 
@@ -28,7 +32,7 @@ import { ViewWillLeave } from '@ionic/angular';
 //   content: any = null;  // To store the fetched content
 //   userId: number = 0;  // User ID from AuthService
 //   private startTime: number = 0;
-  
+
 
 //   constructor(
 //     private userInteractionService: UserInteractionService,
@@ -90,7 +94,7 @@ import { ViewWillLeave } from '@ionic/angular';
 //   }
 // }
 
-export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
+export class TestingPage implements OnInit, OnDestroy, ViewWillLeave {
   // page_id: number | null = null;  // Unique ID for Testing Page
   // content: any = null;  // To store the fetched content
   // user_id: number | null = null;  // User ID from AuthService
@@ -113,18 +117,18 @@ export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
   //   this.time_spent = 0;
   //   this.pageLoadTime = Date.now(); // Capture the exact time when the page loads
   //   console.log('🔹 Page loaded at:', new Date(this.pageLoadTime).toLocaleTimeString());
-  
+
   //   // 🛑 Clear any existing timer before setting a new one
   //   if (this.timer) {
   //     clearInterval(this.timer);
   //   }
-  
+
   //   // ✅ Start a timer that runs once per second
   //   this.timer = setInterval(() => {
   //     this.time_spent = Math.floor((Date.now() - this.pageLoadTime) / 1000); // time in seconds
   //     console.log('⏳ Time Spent:', this.time_spent);
   //   }, 1000);
-  
+
   //   // Get the user ID from AuthService
   //   this.user_id = this.authService.getUserId();  
   //   if (this.user_id) {
@@ -132,7 +136,7 @@ export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
   //   } else {
   //     console.error('❌ User ID is missing');
   //   }
-  
+
   //   // Get page ID from the route and load content
   //   this.route.queryParams.subscribe(params => {
   //     this.page_id = params['id'] ? +params['id'] : null;  // Capture the 'id' query parameter
@@ -144,9 +148,9 @@ export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
   //     }
   //   });
   // }
-  
-  
-  
+
+
+
   // // Method to load content based on the pageId
   // async loadContent() {
   //   if (!this.page_id) {
@@ -163,19 +167,19 @@ export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
   //     console.error('Error fetching page content:', err);
   //   }
   // }
-  
+
   // onLinkClick() {
 
   //   if (this.page_id && this.user_id) {
   //     console.log("✅ Calling recordClick() with:", this.page_id, this.user_id, this.time_spent, this.userInteractionService.clicks + 1);
-      
+
   //     const result = this.userInteractionService.recordClick(
   //       this.page_id, 
   //       this.user_id, 
   //       this.time_spent, 
   //       ++this.userInteractionService.clicks
   //     );
-  
+
   //     console.log("📌 recordClick() returned:", result);
   //   } else {
   //     console.error("❌ Page ID or User ID is missing!");
@@ -219,33 +223,33 @@ export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
     private authService: AuthService,  // Inject AuthService
     private httpService: HttpService,  // Inject HttpService to load content
     private route: ActivatedRoute  // Inject ActivatedRoute to get pageId from URL params
-  ) {}
+  ) { }
 
 
   ngOnInit() {
     this.time_spent = 0;
     this.pageLoadTime = Date.now(); // Capture the exact time when the page loads
     console.log('🔹 Page loaded at:', new Date(this.pageLoadTime).toLocaleTimeString());
-  
+
     // 🛑 Clear any existing timer before setting a new one
     if (this.timer) {
       clearInterval(this.timer);
     }
-  
+
     // ✅ Start a timer that runs once per second
     this.timer = setInterval(() => {
       this.time_spent = Math.floor((Date.now() - this.pageLoadTime) / 1000); // time in seconds
       console.log('⏳ Time Spent:', this.time_spent);
     }, 1000);
-  
+
     // Get the user ID from AuthService
-    this.user_id = this.authService.getUserId();  
+    this.user_id = this.authService.getUserId();
     if (this.user_id) {
       console.log('✅ User ID:', this.user_id);
     } else {
       console.error('❌ User ID is missing');
     }
-  
+
     // Get page ID from the route and load content
     this.route.queryParams.subscribe(params => {
       this.page_id = params['id'] ? +params['id'] : null;  // Capture the 'id' query parameter
@@ -257,9 +261,9 @@ export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
       }
     });
   }
-  
-  
-  
+
+
+
   // Method to load content based on the pageId
   async loadContent() {
     if (!this.page_id) {
@@ -276,24 +280,24 @@ export class TestingPage implements OnInit, OnDestroy,ViewWillLeave{
       console.error('Error fetching page content:', err);
     }
   }
-  
+
   onLinkClick() {
 
     if (this.page_id && this.user_id) {
       console.log("✅ Calling recordClick() with:", this.page_id, this.user_id, this.time_spent, this.userInteractionService.clicks + 1);
-      
+
       const result = this.userInteractionService.recordClick(
-        this.page_id, 
-        this.user_id, 
-        this.time_spent, 
+        this.page_id,
+        this.user_id,
+        this.time_spent,
         ++this.userInteractionService.clicks
       );
-  
+
       console.log("📌 recordClick() returned:", result);
     } else {
       console.error("❌ Page ID or User ID is missing!");
     }
-  } 
+  }
 
   ionViewWillLeave() {
     clearInterval(this.timer);

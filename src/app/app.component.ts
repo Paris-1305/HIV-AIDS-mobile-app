@@ -33,7 +33,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['app.component.scss'],
   standalone: true,
   imports: [
-    RouterLink,
+    // RouterLink,
     FormsModule,
     CommonModule,
     IonApp,
@@ -46,10 +46,10 @@ import { CommonModule } from '@angular/common';
     IonMenuButton,
     IonButtons,
     IonHeader,
-    IonMenuToggle,
+    // IonMenuToggle,
     IonItem,
     IonLabel,
-    IonRouterLink,
+    // IonRouterLink,
     IonRouterOutlet,
   ],
 })
@@ -58,14 +58,14 @@ export class AppComponent {
   // All app pages
   public appPages = [
     { title: 'HIV Basics', action: () => this.router.navigate(['/hiv_basics'], { queryParams: { id: 15 } }) },
-    { title: 'Prevention', action: () => this.router.navigate(['/prevention'], { queryParams: { id: 6} }) }, // ✅ Correct function
+    { title: 'Prevention', action: () => this.router.navigate(['/prevention'], { queryParams: { id: 6 } }) }, // ✅ Correct function
     { title: 'Treatment', action: () => this.router.navigate(['/treatment'], { queryParams: { id: 13 } }) },
     { title: 'HIV & Stigma', action: () => this.router.navigate(['/hiv_stigma'], { queryParams: { id: 18 } }) },
     { title: 'HIV & Pregnancy', action: () => this.router.navigate(['/hiv'], { queryParams: { id: 19 } }) },
     { title: 'Living With HIV', action: () => this.router.navigate(['/living_with_hiv'], { queryParams: { id: 16 } }) },
     { title: 'faqsection', action: () => this.router.navigate(['/living_with_hiv'], { queryParams: { id: 17 } }) },
-    { title: 'Testing', action: () => this.router.navigate(['/testing'], { queryParams: { id: 12 } })  },
-    { title: 'map-page ', action: () => this.router.navigate(['/map-page'])  },
+    { title: 'Testing', action: () => this.router.navigate(['/testing'], { queryParams: { id: 12 } }) },
+    { title: 'map-page ', action: () => this.router.navigate(['/map-page']) },
   ];
 
   // Store the current search query

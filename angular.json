@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-           "outputPath": "dist/browser/browser", 
+           "outputPath": "dist", 
             "baseHref": "/",
             "index": "src/index.html",
             "polyfills": [
