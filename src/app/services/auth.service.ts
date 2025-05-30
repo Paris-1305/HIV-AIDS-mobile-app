@@ -44,7 +44,7 @@ export class AuthService {
     hiv_status: string
   ): Promise<any> {
     try {
-      const response = await this.axiosInstance.post('/signup', {
+      const response = await this.axiosInstance.post(`${this.apiUrl}/signup`, {
         email,
         password,
         gender,
@@ -92,7 +92,7 @@ export class AuthService {
   async login(email: string, password: string): Promise<any> {
     try {
     
-      const response = await this.axiosInstance.post('/login', { email, password });
+      const response = await this.axiosInstance.post(`${this.apiUrl}/login`, { email, password });
       console.log("Backend response:", response);
       console.log("Response data:", response.data);
       console.log("Token received:", response.data?.token); // Log token
@@ -130,7 +130,7 @@ export class AuthService {
   // Get User Profile
   async getUserProfile(): Promise<any> {
     try {
-      const response = await this.axiosInstance.get('/profile');
+      const response = await this.axiosInstance.get(`${this.apiUrl}/profile`);
       return response.data;
     } catch (error) {
       console.error('Error fetching profile:', error);
