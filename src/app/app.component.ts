@@ -57,6 +57,8 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   // All app pages
   public appPages = [
+    { title: 'Login', action: () => this.router.navigate(['/login']) },
+    { title: 'Home', action: () => this.router.navigate(['/home']) },
     { title: 'HIV Basics', action: () => this.router.navigate(['/hiv_basics'], { queryParams: { id: 15 } }) },
     { title: 'Prevention', action: () => this.router.navigate(['/prevention'], { queryParams: { id: 6 } }) }, // ✅ Correct function
     { title: 'Treatment', action: () => this.router.navigate(['/treatment'], { queryParams: { id: 13 } }) },
