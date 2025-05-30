@@ -17,23 +17,6 @@ import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
   imports: [IonInput, IonText, IonContent, IonCard, IonCardTitle, IonCardContent, HttpClientModule,
     IonItem, IonButton, IonLabel, IonCardHeader, CommonModule, FormsModule]
 })
-// export class LoginPage {
-//   email: string = '';
-//   password: string = '';
-//   constructor(private authService: AuthService, private router: Router) { }
-
-//   async loginUser() {
-//     try {
-//       const response = await this.authService.login(this.email, this.password);
-//       console.log('Login successful', response);
-//     } catch (error) {
-//       console.error('Login failed', error);
-//     }
-//   }
-//   goToRegister() {
-//     this.router.navigate(['/register']);
-//   }
-// }
 
 export class LoginPage {
   email: string = '';
