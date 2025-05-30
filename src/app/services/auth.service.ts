@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService { 
-  //http://localhost:8000
   private apiUrl = 'https://hiveducationalmobilebackend.onrender.com'; // Backend URL
   private userIdKey = 'userId'; // Key for storing user ID
   private axiosInstance: AxiosInstance;
@@ -44,7 +43,7 @@ export class AuthService {
     hiv_status: string
   ): Promise<any> {
     try {
-      const response = await this.axiosInstance.post(`${this.apiUrl}/signup`, {
+      const response = await this.axiosInstance.post('https://hiveducationalmobilebackend.onrender.com/signup', {
         email,
         password,
         gender,
@@ -91,8 +90,8 @@ export class AuthService {
   
   async login(email: string, password: string): Promise<any> {
     try {
-    
-      const response = await this.axiosInstance.post(`${this.apiUrl}/login`, { email, password });
+      const response = await axios.post('https://hiveducationalmobilebackend.onrender.com/login', { email, password });
+  
       console.log("Backend response:", response);
       console.log("Response data:", response.data);
       console.log("Token received:", response.data?.token); // Log token
@@ -130,7 +129,7 @@ export class AuthService {
   // Get User Profile
   async getUserProfile(): Promise<any> {
     try {
-      const response = await this.axiosInstance.get(`${this.apiUrl}/profile`);
+      const response = await this.axiosInstance.get('/profile');
       return response.data;
     } catch (error) {
       console.error('Error fetching profile:', error);
@@ -155,24 +154,14 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/reset-password`, { email });
   }
 
-  // async requestPasswordReset(email: string): Promise<void> {
-  //   try {
-  //     const response = await axios.post(`${this.apiUrl}/forgot-password`, { email });
-  //     console.log('Password reset request successful:', response.data);
-  //   } catch (error) {
-  //     console.error('Error requesting password reset:', error);
-  //     throw error;
-  //   }
-  // }
-  // REQUEST PASSWORD RESET using axiosInstance
-async requestPasswordReset(email: string): Promise<void> {
-  try {
-    const response = await this.axiosInstance.post('/forgot-password', { email });
-    console.log('Password reset request successful:', response.data);
-  } catch (error) {
-    console.error('Error requesting password reset:', error);
-    throw error;
+  async requestPasswordReset(email: string): Promise<void> {
+    try {
+      const response = await axios.post(`${this.apiUrl}/forgot-password`, { email });
+      console.log('Password reset request successful:', response.data);
+    } catch (error) {
+      console.error('Error requesting password reset:', error);
+      throw error;
+    }
   }
-}
-
+  
 }
