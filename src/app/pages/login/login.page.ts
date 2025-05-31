@@ -117,7 +117,7 @@ export class LoginPage {
   //     } else {
   //       alert(`An error occurred: ${error.message}`);
   //     }
-  //   }
+  //   } 
   // }
   async loginUser() {
     try {

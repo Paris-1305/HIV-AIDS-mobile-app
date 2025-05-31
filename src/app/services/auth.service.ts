@@ -67,25 +67,28 @@ export class AuthService {
   }
   
 
-// async login(email: string, password: string): Promise<any> {
-//   try {
-//     const response = await axios.post('http://localhost:8000/login', { email, password });
-
-//     console.log("Backend response:", response);
-//     console.log("Response data:", response.data);
-//     console.log("Token received:", response.data?.token); // Log token
-    
-//     // Save the token in localStorage
-//     if (response.data?.token) {
-//       this.saveToken(response.data.token);
-//     }
-
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error during login request:", error);
-//     throw error;
-//   }
-// }
+  // async login(email: string, password: string): Promise<any> {
+  //   try {
+  //     const response = await this.http.post(`${this.apiUrl}/login`, { email, password }).toPromise();
+  
+  //     // Save token
+  //     if ((response as any).token) {
+  //       this.saveToken((response as any).token);
+  //     }
+  // //https://hiv-aids-educational-d75f2d.netlify.app/
+  //     // Save user info
+  //     const user = (response as any).user;
+  //     if (user) {
+  //       localStorage.setItem('user', JSON.stringify(user));
+  //     }
+  
+  //     return response;
+  //   } catch (error) {
+  //     console.error("HTTPClient error during login:", error);
+  //     throw error;
+  //   }
+  // }
+  
 
   // Logout User
   

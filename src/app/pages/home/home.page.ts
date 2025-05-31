@@ -1,58 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-// import { HttpClient } from '@angular/common/http';
-// import { AuthService } from '../../services/auth.service';
-// import { HttpClientModule } from '@angular/common/http';
-// import { RouterModule } from '@angular/router';
-// import { CommonModule } from '@angular/common';
-// import { IonContent, IonHeader, IonTitle, IonList, IonItem, IonLabel, IonToolbar, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
-
-// @Component({
-//   selector: 'app-home',
-//   templateUrl: './home.page.html',
-//   styleUrls: ['./home.page.scss'],
-//   standalone: true,
-//   providers: [AuthService],
-//   imports: [IonCol, IonRow, IonGrid,
-//     IonContent, IonHeader, IonTitle, IonList, IonItem, IonLabel, IonToolbar,
-//     CommonModule, FormsModule, RouterModule, HttpClientModule
-//   ]
-// })
-// export class HomePage implements OnInit {
-
-//   recommendations: any[] = [];
-
-//   constructor(private http: HttpClient, private authService: AuthService) { }
-
-//   ngOnInit() {
-//     this.fetchRecommendations();
-//   }
-
-//   fetchRecommendations(event?: any) {
-//     const userId = this.authService.getUserId();  // Fetch user ID directly from localStorage
-//     if (!userId) {
-//       console.error("No user ID found!");
-//       return;
-//     }
-
-//     this.http.get(`http://localhost:8000/recommendations/${userId}`).subscribe(
-//       (response: any) => {
-//         this.recommendations = response.recommendations;
-//         if (event) {
-//           event.target.complete(); // Stop refresher animation
-//         }
-//       },
-//       (error) => {
-//         console.error("Error fetching recommendations:", error);
-//         if (event) {
-//           event.target.complete();
-//         }
-//       }
-//     );
-//   }
-// }
-
-
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -187,7 +132,7 @@ export class HomePage implements OnInit {
         console.error("Invalid token: userId not found");
         return;
     }
-    this.http.get(`http://localhost:8000/recommendations/${userId}`, {
+    this.http.get(`https://hiveducationalmobilebackend.onrender.com/recommendations/${userId}`, {
         headers: { Authorization: `Bearer ${token}` }
     }).subscribe(
         (response: any) => {
