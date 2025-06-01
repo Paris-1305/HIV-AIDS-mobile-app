@@ -1,0 +1,106 @@
+/* signup.page.scss */
+
+ion-content {
+    --background: #f5f9ff;
+  }
+  
+  .header-image {
+    text-align: center;
+    margin-bottom: 20px;
+    
+    img {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      font-weight: bold;
+      color: var(--ion-color-primary);
+      margin-bottom: 5px;
+    }
+    
+    p {
+      color: var(--ion-color-medium);
+      margin-top: 0;
+    }
+  }
+  
+  .form-section {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    
+    ion-card-header {
+      padding-bottom: 0;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      
+      ion-icon {
+        margin-right: 10px;
+        color: var(--ion-color-primary);
+      }
+    }
+  }
+  
+  .form-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --border-color: rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    
+    ion-icon[slot="start"] {
+      margin-right: 10px;
+      color: var(--ion-color-medium);
+    }
+  }
+  
+  .password-hints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    
+    ion-text {
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      
+      ion-icon {
+        margin-right: 4px;
+        font-size: 1rem;
+      }
+    }
+  }
+  
+  .action-buttons {
+    margin-top: 25px;
+    
+    .submit-button {
+      --box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.3);
+      height: 50px;
+      font-weight: bold;
+    }
+  }
+  
+  .login-prompt {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--ion-color-medium);
+    
+    ion-button {
+      --padding-start: 5px;
+      --padding-end: 5px;
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (min-width: 768px) {
+    ion-content {
+      --padding-start: 20%;
+      --padding-end: 20%;
+    }
+  }

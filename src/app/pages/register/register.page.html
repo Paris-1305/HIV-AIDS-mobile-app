@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Register</ion-title>
   </ion-toolbar>
@@ -93,5 +93,176 @@
     </ion-card>
     <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">Register</ion-button>
     <ion-button color="success" fill="clear" size="full" (click)="goToLogin()">Login</ion-button>
+  </form>
+</ion-content> -->
+
+
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="header-image">
+    <img src="assets/images/signup-hero.png" alt="Sign up illustration">
+    <h2>Join Our Community</h2>
+    <p>Create your account to get started</p>
+  </div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <!-- Personal Information Section -->
+    <ion-card class="form-section">
+      <ion-card-header>
+        <ion-card-title class="section-title">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          Personal Information
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" formControlName="email" required></ion-input>
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" formControlName="password" required></ion-input>
+          <ion-icon slot="end" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" (click)="togglePasswordVisibility()"></ion-icon>
+        </ion-item>
+
+        <div class="password-hints" *ngIf="registerForm.get('password')?.touched">
+          <ion-text [color]="registerForm.get('password')?.value?.length >= 6 ? 'success' : 'danger'">
+            <ion-icon [name]="registerForm.get('password')?.value?.length >= 6 ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+            At least 6 characters
+          </ion-text>
+          <ion-text [color]="hasUpperCase(registerForm.get('password')?.value) ? 'success' : 'danger'">
+            <ion-icon [name]="hasUpperCase(registerForm.get('password')?.value) ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+            Uppercase letter
+          </ion-text>
+          <ion-text [color]="hasSpecialChar(registerForm.get('password')?.value) ? 'success' : 'danger'">
+            <ion-icon [name]="hasSpecialChar(registerForm.get('password')?.value) ? 'checkmark-circle' : 'close-circle'"></ion-icon>
+            Special character
+          </ion-text>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Demographic Information Section -->
+    <ion-card class="form-section">
+      <ion-card-header>
+        <ion-card-title class="section-title">
+          <ion-icon name="people-outline"></ion-icon>
+          Demographic Information
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="male-female-outline"></ion-icon>
+          <ion-label>Gender</ion-label>
+          <ion-select formControlName="gender" interface="popover" required>
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="calendar-outline"></ion-icon>
+          <ion-label>Age Group</ion-label>
+          <ion-select formControlName="age" interface="popover" required>
+            <ion-select-option value="less 14">Less than 14</ion-select-option>
+            <ion-select-option value="14-17">14-17</ion-select-option>
+            <ion-select-option value="17-21">17-21</ion-select-option>
+            <ion-select-option value="21-25">21-25</ion-select-option>
+            <ion-select-option value="26-35">26-35</ion-select-option>
+            <ion-select-option value="35+">35+</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="school-outline"></ion-icon>
+          <ion-label>Education Level</ion-label>
+          <ion-select formControlName="educationLevel" interface="popover" required>
+            <ion-select-option value="never been in school">Never been in school</ion-select-option>
+            <ion-select-option value="Primary School Incomplete">Primary School Incomplete</ion-select-option>
+            <ion-select-option value="Primary School Complete">Primary School Complete</ion-select-option>
+            <ion-select-option value="Secondary School Incomplete">Secondary School Incomplete</ion-select-option>
+            <ion-select-option value="Secondary school complete">Secondary school complete</ion-select-option>
+            <ion-select-option value="graduation level">Graduation level</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Health Information Section -->
+    <ion-card class="form-section">
+      <ion-card-header>
+        <ion-card-title class="section-title">
+          <ion-icon name="medkit-outline"></ion-icon>
+          Health Information
+        </ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="heart-outline"></ion-icon>
+          <ion-label>Sexual Activity</ion-label>
+          <ion-select formControlName="sexualActivity" interface="popover">
+            <ion-select-option value="yes">Yes</ion-select-option>
+            <ion-select-option value="no">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="people-circle-outline"></ion-icon>
+          <ion-label>Marital Status</ion-label>
+          <ion-select formControlName="maritalStatus" interface="popover" required>
+            <ion-select-option value="Married">Married</ion-select-option>
+            <ion-select-option value="Unmarried">Unmarried</ion-select-option>
+            <ion-select-option value="divorce">Divorced</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="flask-outline"></ion-icon>
+          <ion-label>HIV Testing History</ion-label>
+          <ion-select formControlName="testingHistory" interface="popover" required>
+            <ion-select-option value="never tested">Never tested</ion-select-option>
+            <ion-select-option value="tested once">Tested once</ion-select-option>
+            <ion-select-option value="3-6 months">3-6 months ago</ion-select-option>
+            <ion-select-option value="more than a year">More than 1 year</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="full" class="form-item">
+          <ion-icon slot="start" name="medal-outline"></ion-icon>
+          <ion-label>HIV Status</ion-label>
+          <ion-select formControlName="hivStatus" interface="popover" required>
+            <ion-select-option value="positive">Positive</ion-select-option>
+            <ion-select-option value="negative">Negative</ion-select-option>
+            <ion-select-option value="no idea">No idea</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="action-buttons">
+      <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" shape="round" class="submit-button">
+        <ion-icon slot="start" name="person-add-outline"></ion-icon>
+        Create Account
+      </ion-button>
+      
+      <div class="login-prompt">
+        Already have an account?
+        <ion-button fill="clear" color="primary" (click)="goToLogin()">Sign In</ion-button>
+      </div>
+    </div>
   </form>
 </ion-content>

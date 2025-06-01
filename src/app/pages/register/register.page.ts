@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonContent, IonHeader, IonCard,IonCardContent,IonCardHeader,IonSelect,
-  IonCardTitle,IonItem, IonLabel,IonInput, IonSelectOption, IonText,
+ IonIcon,IonBackButton,IonButtons, IonCardTitle,IonItem, IonLabel,IonInput, IonSelectOption, IonText,
  IonButton, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -16,81 +16,16 @@ import { passwordStrengthValidator } from 'src/app/validators/password-strength.
   standalone: true,
   providers:[AuthService],
   imports: [IonContent, IonHeader,IonText,  IonCard,IonCardContent,IonCardHeader,IonCardTitle,IonItem,
-    IonSelectOption,IonButton,  HttpClientModule, ReactiveFormsModule,
+    IonSelectOption,IonButton,  HttpClientModule,
+    IonIcon,IonBackButton,IonButtons, ReactiveFormsModule,
 IonSelect, IonInput, IonLabel,IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-// export class RegisterPage implements OnInit {
-  
-//   email: string = '';
-//   password: string = '';
-//   gender: string = '';
-//   age: string = '';
-//   educationLevel: string = '';
-//   sexualActivity: string = '';
-//   maritalStatus: string = '';
-//   testingHistory: string = '';
-//   hivStatus: string = '';
-
-//   constructor(private authService: AuthService, private router: Router) { }
-
-//   ngOnInit() {}
-   
-//   async register() {
-//     // Validate form fields
-//     if (
-//       !this.email ||
-//       !this.password ||
-//       !this.gender ||
-//       !this.age ||
-//       !this.educationLevel ||
-//       !this.maritalStatus ||
-//       !this.testingHistory ||
-//       !this.hivStatus
-//     ) {
-//       alert('Please fill in all fields.');
-//       return;
-//     }
-
-//     const userData = {
-//       email: this.email,
-//       password: this.password,
-//       gender: this.gender,
-//       age: this.age,
-//       education_level: this.educationLevel,
-//       sexual_activity: this.sexualActivity,
-//       marital_status: this.maritalStatus,
-//       testing_history: this.testingHistory,
-//       hiv_status: this.hivStatus,
-//     };
-
-//     console.log('Sending data:', userData);
-
-//     try {
-//       const response = await this.authService.register(
-//       userData.email,
-//       userData.password,
-//       userData.gender,
-//       userData.age,
-//       userData.education_level,
-//       userData.sexual_activity,
-//       userData.marital_status,
-//       userData.testing_history,
-//       userData.hiv_status
-//       );
-//       console.log('Registration successful:', response);
-//       console.log('Navigating to loader page...');
-//       this.router.navigate(['/loader']); // Navigate to home page
-//     } catch (error) {
-//       console.error('Registration failed:', error);
-//     }
-//   }
-
-// }
 
 export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
-
+  showPassword = false;
+  
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -113,6 +48,21 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {}
+
+    // Toggle password visibility
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    }
+  
+    // Check if string contains uppercase letter
+    hasUpperCase(str: string): boolean {
+      return /[A-Z]/.test(str || '');
+    }
+  
+    // Check if string contains special character
+    hasSpecialChar(str: string): boolean {
+      return /[!@#$%^&*(),.?":{}|<>]/.test(str || '');
+    }
 
   async register() {
     if (this.registerForm.invalid) {
