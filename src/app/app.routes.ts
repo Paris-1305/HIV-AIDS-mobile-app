@@ -63,5 +63,17 @@ export const routes: Routes = [
     path: 'map-page',
     loadComponent: () => import('./pages/location-page/location-page.page').then( m => m.LocationPagePage)
   },
-  { path: '**', redirectTo: 'home' }  // wildcard route to handle unknown paths
+    {
+    path: 'hiv-women-health',
+    loadComponent: () => import('./pages/hiv-women-health/hiv-women-health.page').then( m => m.HivWomenHealthPage)
+  },
+  {
+    path: 'support-people-hiv',
+    loadComponent: () => import('./pages/support-people-hiv/support-people-hiv.page').then( m => m.SupportPeopleHivPage)
+  },
+  {
+    path: 'ending-hiv-stigma',
+    loadComponent: () => import('./pages/ending-hiv-stigma/ending-hiv-stigma.page').then( m => m.EndingHivStigmaPage)
+  }
+ // wildcard route to handle unknown paths
 ];
