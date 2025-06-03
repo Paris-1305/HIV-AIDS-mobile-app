@@ -1,7 +1,28 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Testing Page</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="content">
+    <h2>{{ content.title }}</h2> 
+    <p>{{ content.description }}</p>
+    <div *ngIf="content.links && content.links.length > 0">
+        <div *ngFor="let link of content.links">
+          <a [href]="link" target="_blank" rel="noopener noreferrer" (click)="onLinkClick()">
+            {{ link }}
+          </a>
+        </div>
+    </div>
+  </div>
+  <div *ngIf="!content">
+    <ion-spinner name="dots"></ion-spinner> 
+  </div>
+</ion-content> -->
 
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Ending hiv stigma</ion-title>
+    <ion-title>HIV Testing Information</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -52,3 +73,4 @@
     </div>
   </div>
 </ion-content>
+

@@ -65,11 +65,14 @@ export class AppComponent {
     { title: 'HIV & Stigma', action: () => this.router.navigate(['/hiv_stigma'], { queryParams: { id: 18 } }) },
     { title: 'HIV & Pregnancy', action: () => this.router.navigate(['/hiv'], { queryParams: { id: 19 } }) },
     { title: 'Living With HIV', action: () => this.router.navigate(['/living_with_hiv'], { queryParams: { id: 16 } }) },
-    { title: 'faqsection', action: () => this.router.navigate(['/faqsection'], { queryParams: { id: 17 } }) },
+    { title: 'faqsection', action: () => this.router.navigate(['/living_with_hiv'], { queryParams: { id: 17 } }) },
     { title: 'Testing', action: () => this.router.navigate(['/testing'], { queryParams: { id: 12 } }) },
     { title: 'HIV women health', action: () => this.router.navigate(['/hiv-women-health'], { queryParams: { id: 20 } }) },
     { title: 'support people with hiv', action: () => this.router.navigate(['/support-people-hiv'], { queryParams: { id: 21 } }) },
     { title: 'Ending hiv stigma', action: () => this.router.navigate(['/ending-hiv-stigma'], { queryParams: { id: 22 } }) },
+    { title: 'Staying Healthy with HIV', action: () => this.router.navigate(['/staying-healthy'], { queryParams: { id: 23 } }) },
+    { title: 'Youth and  HIV', action: () => this.router.navigate(['/hiv-youth'], { queryParams: { id: 24 } }) },
+    { title: 'Safe Sex Practices', action: () => this.router.navigate(['/safe-sex-practices'], { queryParams: { id: 25 } }) },
     { title: 'map-page ', action: () => this.router.navigate(['/map-page']) },
   ];
 

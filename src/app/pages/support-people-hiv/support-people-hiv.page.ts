@@ -21,7 +21,7 @@ import { UserInteractionService } from 'src/app/services/user-interaction.servic
   imports: [IonContent, IonHeader, IonTitle, IonSpinner,HttpClientModule,
  IonList, IonItem,IonButton,IonLabel,IonChip,IonIcon,  IonToolbar,  CommonModule, FormsModule]
 })
-export class SupportPeopleHivPage implements OnInit {
+export class SupportPeopleHivPage implements OnInit,OnDestroy,ViewWillLeave{
 
   page_id: number | null = null;  // Unique ID for Testing Page
   content: any = null;  // To store the fetched content

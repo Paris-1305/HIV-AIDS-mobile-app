@@ -1,28 +1,29 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent,IonHeader, IonTitle,IonSpinner,IonItem,IonChip,IonIcon,
-  IonList, IonLabel,IonButton, IonToolbar } from '@ionic/angular/standalone';import { catchError, of, Subscription, tap, throwError, timer } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute, Router } from '@angular/router'
-import { ContentService } from 'src/app/services/content.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HttpService } from 'src/app/services/http.service';
-import { ViewWillLeave } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service';
+import { IonContent,IonHeader, IonTitle,IonList, IonItem, IonLabel, 
+ IonIcon,IonChip, IonButton, IonSpinner, IonToolbar } from '@ionic/angular/standalone';
 import { UserInteractionService } from 'src/app/services/user-interaction.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { HttpService } from 'src/app/services/http.service';
+import { ContentService } from 'src/app/services/content.service';
+import { UserService } from 'src/app/services/user.service';
+import { ViewWillLeave } from '@ionic/angular';
+
 
 @Component({
-  selector: 'app-hiv-women-health',
-  templateUrl: './hiv-women-health.page.html',
-  styleUrls: ['./hiv-women-health.page.scss'],
+  selector: 'app-staying-healthy',
+  templateUrl: './staying-healthy.page.html',
+  styleUrls: ['./staying-healthy.page.scss'],
   standalone: true,
-  providers:[HttpClient,ContentService,UserService, HttpService,AuthService,UserInteractionService],
-    imports: [IonContent, IonHeader, IonTitle, IonSpinner,HttpClientModule,
-   IonList, IonItem,IonButton,IonLabel,IonChip,IonIcon,  IonToolbar,  CommonModule, FormsModule]
+  providers:[HttpClient, ContentService, UserService, HttpService, AuthService, UserInteractionService],
+  imports: [IonContent, IonHeader, IonTitle, IonSpinner, HttpClientModule, IonList, IonItem,
+  IonIcon,IonChip,  IonLabel, IonToolbar, CommonModule, FormsModule]
 })
-export class HivWomenHealthPage implements OnInit,OnDestroy,ViewWillLeave {
-  page_id: number | null = null;  // Unique ID for Testing Page
+export class StayingHealthyPage implements OnInit,OnDestroy,ViewWillLeave {
+ page_id: number | null = null;  // Unique ID for Testing Page
   content: any = null;  // To store the fetched content
   user_id: number | null = null;  // User ID from AuthService
   private startTime: number = 0;
@@ -145,5 +146,4 @@ export class HivWomenHealthPage implements OnInit,OnDestroy,ViewWillLeave {
       return url;
     }
   }
-
 }
