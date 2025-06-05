@@ -52,7 +52,7 @@ export class UserInteractionService {
   
     console.log("🚀 Sending interaction data:", interactionData); // ✅ Log before sending
   
-    return this.http.post('http://localhost:8000/user-interaction', interactionData)
+    return this.http.post('https://hiveducationalmobilebackend.onrender.com/user-interaction', interactionData)
       .subscribe(
         response => console.log("✅ Interaction recorded successfully:", response),
         error => console.error("❌ Error recording interaction:", error)
