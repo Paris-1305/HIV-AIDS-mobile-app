@@ -6,7 +6,7 @@ import { AuthService } from './auth.service'; // Import AuthService
   providedIn: 'root'
 })
 export class UserInteractionService {
-  private apiUrl = 'https://hiveducationalmobilebackend.onrender.com/user-interactions'; // Backend URL
+  private apiUrl = 'https://hiveducationalmobilebackend.onrender.com/user-interaction'; // Backend URL
   private startTime: number = 0; // To track time spent
   public clicks: number = 0; // To track links clicked
   private currentPageId: number = 0; // Track current page ID
@@ -73,7 +73,7 @@ export class UserInteractionService {
 
     // Send data to backend
     // Send data to backend
-    this.http.post(`${this.apiUrl}/save`, data).subscribe(response => {
+    this.http.post('https://hiveducationalmobilebackend.onrender.com/user-interaction', data).subscribe(response => {
       console.log('User interaction saved:', response);
     }, err => {
       console.error('Error saving user interaction:', err);
