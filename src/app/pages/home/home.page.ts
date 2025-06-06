@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { RecommendationService } from '../../services/recommendation.service';
 import { jwtDecode } from "jwt-decode";
 import { 
   IonHeader, 
@@ -36,7 +37,7 @@ register();
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
-  providers: [AuthService],
+  providers: [AuthService,RecommendationService],
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
@@ -85,6 +86,7 @@ export class HomePage implements OnInit {
     18: 'hiv_stigma',
     19: 'hivpregnancy',
     20: 'faqsection'
+
   };
 
   quickLinks = [
@@ -112,7 +114,8 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router, 
     private http: HttpClient, 
-    public authService: AuthService
+    public authService: AuthService,
+    private recommendationService: RecommendationService
   ) {}
 
   ngOnInit() {
