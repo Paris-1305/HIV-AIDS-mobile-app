@@ -279,53 +279,128 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.fetchRecommendations();
   }
+  pageMapInverse(route: string): number | null {
+    for (const [id, name] of Object.entries(this.pageMap)) {
+      if (name === route) {
+        return Number(id);
+      }
+    }
+    return null;
+  }
+  // fetchRecommendations() {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.error("No authentication token found!");
+  //     return;
+  //   }
 
+  //   const decodedToken: any = jwtDecode(token);
+  //   const userId = decodedToken?.userId;
+
+  //   if (!userId) {
+  //     console.error("Invalid token: userId not found");
+  //     return;
+  //   }
+
+  //   this.recommendationService.getRecommendedPages(userId).subscribe(
+  //     (response: any) => {
+  //       if (!response.recommendations || response.recommendations.length === 0) {
+  //         this.recommendations = [];
+  //         return;
+  //       }
+
+  //       // Reverse map (normalized)
+  //       const reversePageMap: { [key: string]: number } = {};
+  //       Object.entries(this.pageMap).forEach(([id, name]) => {
+  //         const normalized = name.toLowerCase().replace(/[-]/g, '_');
+  //         reversePageMap[normalized] = Number(id);
+  //       });
+
+  //       this.recommendations = response.recommendations.map((rec: any) => {
+  //         const pageKey = rec.page?.toLowerCase().replace(/[-]/g, '_');
+  //         const pageId = reversePageMap[pageKey];
+
+  //         return {
+  //           title: this.formatTitle(pageKey || rec.page),
+  //           path: `/${pageKey}`,
+  //           queryParams: { id: pageId || null }
+  //         };
+  //       });
+  //     },
+  //     (error) => {
+  //       console.error("Error fetching recommendations:", error);
+  //     }
+  //   );
+  // }
   fetchRecommendations() {
     const token = localStorage.getItem("token");
     if (!token) {
       console.error("No authentication token found!");
       return;
     }
-
+  
     const decodedToken: any = jwtDecode(token);
     const userId = decodedToken?.userId;
-
+  
     if (!userId) {
       console.error("Invalid token: userId not found");
       return;
     }
-
+  
     this.recommendationService.getRecommendedPages(userId).subscribe(
       (response: any) => {
         if (!response.recommendations || response.recommendations.length === 0) {
           this.recommendations = [];
           return;
         }
-
-        // Reverse map (normalized)
+  
+        // Create reverse mapping from our pageMap.
+        // Normalize the names by replacing hyphens with underscores.
         const reversePageMap: { [key: string]: number } = {};
         Object.entries(this.pageMap).forEach(([id, name]) => {
           const normalized = name.toLowerCase().replace(/[-]/g, '_');
           reversePageMap[normalized] = Number(id);
         });
-
+  
+        // Mapping object to convert recommended page names to actual route strings.
+        // Adjust these keys so that they match the names returned from your backend (normalized)
+        // and the values match the routes defined in your app.routes.
+        const recRouteMapping: { [key: string]: string } = {
+          'hiv_testing': 'testing',
+          'understanding_hiv_and_aids': 'hiv_basics',
+          'hiv_and_stigma': 'hiv_stigma',       // Note: make sure you have a route for this!
+          'safe_sex_practices': 'safe-sex-practices',
+          'ending_hiv_stigma': 'ending-hiv-stigma',
+          'support_people_with_hiv':'support-people-hiv',
+          'safe_sex_practices':'safe-sex-practices',
+          'staying_healthy_with_hiv':'staying-healthy',
+          'hiv_and_youth':'hiv-youth',
+          'hiv_and_pregnancy':'hiv',
+          'hiv_and_womens_health':'hiv-women-health'
+          // Add more mappings as needed.
+        };
+  
         this.recommendations = response.recommendations.map((rec: any) => {
-          const pageKey = rec.page?.toLowerCase().replace(/[-]/g, '_');
-          const pageId = reversePageMap[pageKey];
-
+          // Normalize the returned rec.page string
+          let pageKey = rec.page?.toLowerCase().replace(/[-]/g, '_');
+          // If there's a mapping defined, use it; otherwise use the normalized key.
+          const mappedRoute = recRouteMapping[pageKey] || pageKey;
+          // Look up the page ID from the reverse mapping or by checking our pageMap.
+          const pageId = reversePageMap[pageKey] || this.pageMapInverse(mappedRoute);
+  
           return {
-            title: this.formatTitle(pageKey || rec.page),
-            path: `/${pageKey}`,
+            title: this.formatTitle(mappedRoute), // or rec.page if you prefer
+            path: `/${mappedRoute}`,
             queryParams: { id: pageId || null }
           };
         });
+  
       },
       (error) => {
         console.error("Error fetching recommendations:", error);
       }
     );
   }
-
   formatTitle(page: string): string {
     return page
       .replace(/[-_]/g, " ")
