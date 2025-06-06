@@ -208,69 +208,15 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../../services/auth.service';
-import { RecommendationService } from '../../services/recommendation.service';
-import { jwtDecode } from "jwt-decode";
-import { 
-  IonHeader, 
-  IonToolbar, 
-  IonTitle, 
-  IonContent, 
-  IonButton, 
-  IonIcon, 
-  IonSearchbar, 
-  IonList, 
-  IonItem, 
-  IonLabel,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonCardContent,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonCardSubtitle
-} from '@ionic/angular/standalone';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { register } from 'swiper/element/bundle';
-
-register();
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { RecommendationService } from '../services/recommendation.service';
+import jwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
-  standalone: true,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [AuthService, RecommendationService],
-  imports: [
-    CommonModule, 
-    FormsModule, 
-    RouterModule, 
-    HttpClientModule, 
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonButton,
-    IonIcon,
-    IonSearchbar,
-    IonList,
-    IonItem,
-    IonLabel,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardContent,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonCardSubtitle
-  ]
 })
 export class HomePage implements OnInit {
   searchQuery: string = '';
@@ -284,28 +230,29 @@ export class HomePage implements OnInit {
     initialSlide: 1
   };
 
+  // Ensure consistent underscore naming
   pageMap: { [key: number]: string } = {
     15: 'hiv_basics',
     13: 'treatment',
     6: 'prevention',
     12: 'testing',
     16: 'living_with_hiv',
-    17:'faqsection'
+    17: 'faqsection',
     18: 'hiv_and_stigma',
     19: 'hiv',
-    20: 'hiv-women-health',
-    21: 'support-people-hiv',
-    22: 'ending-hiv-stigma',
-    23: 'staying-healthy',
-    24: 'hiv-youth',
-    25: 'safe-sex-practices'
+    20: 'hiv_and_womens_health',
+    21: 'support_people_with_hiv',
+    22: 'ending_hiv_stigma',
+    23: 'staying_healthy',
+    24: 'hiv_and_youth',
+    25: 'safe_sex_practices'
   };
 
   quickLinks = [
     { title: 'Prevention', icon: 'shield-checkmark', link: '/prevention', queryParams: { id: 6 } },
     { title: 'Testing', icon: 'flask', link: '/testing', queryParams: { id: 12 } },
     { title: 'Treatment', icon: 'medkit', link: '/treatment', queryParams: { id: 13 } },
-    { title: 'Living with HIV', icon: 'heart', link: '/living-with-hiv', queryParams: { id: 16 } }
+    { title: 'Living with HIV', icon: 'heart', link: '/living_with_hiv', queryParams: { id: 16 } }
   ];
 
   featuredArticles = [
@@ -342,8 +289,6 @@ export class HomePage implements OnInit {
 
     const decodedToken: any = jwtDecode(token);
     const userId = decodedToken?.userId;
-    console.log('Decoded Token:', decodedToken);
-console.log('User ID:', userId);
 
     if (!userId) {
       console.error("Invalid token: userId not found");
@@ -352,42 +297,28 @@ console.log('User ID:', userId);
 
     this.recommendationService.getRecommendedPages(userId).subscribe(
       (response: any) => {
-        console.log("Raw API Response:", response);
-
         if (!response.recommendations || response.recommendations.length === 0) {
-          console.warn("No recommendations received.");
           this.recommendations = [];
           return;
         }
 
-        // Create reverse page map (lowercased for robust matching)
+        // Reverse map (normalized)
         const reversePageMap: { [key: string]: number } = {};
         Object.entries(this.pageMap).forEach(([id, name]) => {
-          reversePageMap[name.toLowerCase()] = Number(id);
+          const normalized = name.toLowerCase().replace(/[-]/g, '_');
+          reversePageMap[normalized] = Number(id);
         });
 
         this.recommendations = response.recommendations.map((rec: any) => {
-          const pageKey = rec.page?.toLowerCase();
+          const pageKey = rec.page?.toLowerCase().replace(/[-]/g, '_');
           const pageId = reversePageMap[pageKey];
 
-          if (!pageId) {
-            console.warn(`No matching page ID found for: ${rec.page}`);
-            return {
-              title: this.formatTitle(rec.page.replace(/_/g, ' ')),
-              path: `/${rec.page}`,
-              queryParams: { id: null }
-            };
-          }
-
-          const pagePath = this.pageMap[pageId];
           return {
-            title: this.formatTitle(pagePath),
-            path: `/${pagePath}`,
-            queryParams: { id: pageId }
+            title: this.formatTitle(pageKey || rec.page),
+            path: `/${pageKey}`,
+            queryParams: { id: pageId || null }
           };
         });
-
-        console.log("Formatted Recommendations:", this.recommendations);
       },
       (error) => {
         console.error("Error fetching recommendations:", error);
@@ -402,6 +333,7 @@ console.log('User ID:', userId);
   }
 
   navigateTo(path: string, queryParams?: any) {
+    if (!path) return;
     this.router.navigate([path], { queryParams });
   }
 
