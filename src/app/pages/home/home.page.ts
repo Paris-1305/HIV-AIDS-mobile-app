@@ -285,19 +285,20 @@ export class HomePage implements OnInit {
   };
 
   pageMap: { [key: number]: string } = {
-    15: 'understanding_hiv_and_aids',
-    13: 'hiv_treatment',
-    6: 'hiv_prevention',
-    12: 'hiv_testing',
+    15: 'hiv_basics',
+    13: 'treatment',
+    6: 'prevention',
+    12: 'testing',
     16: 'living_with_hiv',
+    17:'faqsection'
     18: 'hiv_and_stigma',
-    19: 'hiv_and_pregnancy',
-    20: 'hiv_and_womens_health',
-    21: 'support_people_with_hiv',
-    22: 'ending_hiv_stigma',
-    23: 'staying_healthy_with_hiv',
-    24: 'hiv_and_youth',
-    25: 'safe_sex_practices'
+    19: 'hiv',
+    20: 'hiv-women-health',
+    21: 'support-people-hiv',
+    22: 'ending-hiv-stigma',
+    23: 'staying-healthy',
+    24: 'hiv-youth',
+    25: 'safe-sex-practices'
   };
 
   quickLinks = [
