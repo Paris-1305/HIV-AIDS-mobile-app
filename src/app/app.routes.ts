@@ -28,7 +28,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/treatment/treatment.page').then(m => m.TreatmentPage)
   },
   {
-    path: 'hiv_basics',
+    path: 'understanding_hiv_and_aids',
     loadComponent: () => import('./pages/hivbasics/hivbasics.page').then(m => m.HIVBasicsPage)
   },
   {
@@ -74,7 +74,8 @@ export const routes: Routes = [
   {
     path: 'ending-hiv-stigma',
     loadComponent: () => import('./pages/ending-hiv-stigma/ending-hiv-stigma.page').then( m => m.EndingHivStigmaPage)
-  },  {
+  },
+  {
     path: 'hiv-youth',
     loadComponent: () => import('./pages/hiv-youth/hiv-youth.page').then( m => m.HivYouthPage)
   },
