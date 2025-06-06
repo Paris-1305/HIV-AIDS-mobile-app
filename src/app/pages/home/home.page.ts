@@ -285,15 +285,14 @@ export class HomePage implements OnInit {
   };
 
   pageMap: { [key: number]: string } = {
-    6: 'prevention',
-    12: 'testing',
-    13: 'treatment',
-    15: 'hiv_basics',
+    15: 'understanding_hiv_and_aids',
+    13: 'hiv_treatment',
+    6: 'hiv_prevention',
+    12: 'hiv_testing',
     16: 'living_with_hiv',
-    18: 'hiv_stigma',
-    19: 'hivpregnancy',
-    17: 'faqsection',
-    20: 'hiv_women_health',
+    18: 'hiv_and_stigma',
+    19: 'hiv_and_pregnancy',
+    20: 'hiv_and_womens_health',
     21: 'support_people_with_hiv',
     22: 'ending_hiv_stigma',
     23: 'staying_healthy_with_hiv',
