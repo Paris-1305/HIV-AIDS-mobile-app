@@ -342,6 +342,9 @@ export class HomePage implements OnInit {
 
     const decodedToken: any = jwtDecode(token);
     const userId = decodedToken?.userId;
+    console.log('Decoded Token:', decodedToken);
+console.log('User ID:', userId);
+
     if (!userId) {
       console.error("Invalid token: userId not found");
       return;
