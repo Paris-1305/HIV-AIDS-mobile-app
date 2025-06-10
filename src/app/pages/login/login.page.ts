@@ -127,7 +127,7 @@ export class LoginPage {
       if (response.token) {
         localStorage.setItem("token", response.token);
         console.log("Token stored in localStorage:", localStorage.getItem("token")); // Debugging
-  
+       alert("login sucessfully")
         this.router.navigate(["/home"]);
       } else {
         console.error("Token missing in response");

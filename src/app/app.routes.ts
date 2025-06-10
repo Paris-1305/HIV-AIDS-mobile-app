@@ -28,7 +28,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/treatment/treatment.page').then(m => m.TreatmentPage)
   },
   {
-    path: 'understanding_hiv_and_aids',
+    path: 'hiv_basics',
     loadComponent: () => import('./pages/hivbasics/hivbasics.page').then(m => m.HIVBasicsPage)
   },
   {

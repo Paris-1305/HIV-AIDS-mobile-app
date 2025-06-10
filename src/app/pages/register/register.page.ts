@@ -87,8 +87,9 @@ export class RegisterPage implements OnInit {
         userData.testingHistory,
         userData.hivStatus
       );
+      alert("registration succesfull login now")
       console.log('Registration successful:', response);
-      this.router.navigate(['/loader']);
+      this.router.navigate(['/login']);
     } catch (error) {
       console.error('Registration failed:', error);
     }

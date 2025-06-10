@@ -2,7 +2,7 @@
 // import { Component, OnInit } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 // import { FormsModule } from '@angular/forms';
-// import { RouterModule, Router } from '@angular/router';
+// 
 // import { HttpClient, HttpClientModule } from '@angular/common/http';
 // import { AuthService } from '../../services/auth.service';
 // import { RecommendationService } from '../../services/recommendation.service';
@@ -208,15 +208,63 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { RecommendationService } from '../services/recommendation.service';
-import jwtDecode from 'jwt-decode';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+ import { AuthService } from '../../services/auth.service';
+ import { RecommendationService } from '../../services/recommendation.service';
+ import { 
+  IonHeader, 
+  IonToolbar, 
+  IonTitle, 
+  IonContent, 
+  IonButton, 
+  IonIcon, 
+  IonSearchbar, 
+  IonList, 
+  IonItem, 
+  IonLabel,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCardSubtitle
+} from '@ionic/angular/standalone';
+import { jwtDecode } from "jwt-decode";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
+  providers: [AuthService,RecommendationService],
   styleUrls: ['./home.page.scss'],
+  imports: [
+        CommonModule, 
+        FormsModule, 
+        RouterModule, 
+        HttpClientModule, 
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
+        IonButton,
+        IonIcon,
+        IonSearchbar,
+        IonList,
+        IonItem,
+        IonLabel,
+        IonCard,
+        IonCardHeader,
+        IonCardTitle,
+        IonCardContent,
+        IonGrid,
+        IonRow,
+        IonCol,
+        IonCardSubtitle
+      ]
 })
 export class HomePage implements OnInit {
   searchQuery: string = '';
@@ -279,14 +327,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.fetchRecommendations();
   }
-  pageMapInverse(route: string): number | null {
-    for (const [id, name] of Object.entries(this.pageMap)) {
-      if (name === route) {
-        return Number(id);
-      }
-    }
-    return null;
-  }
+
   // fetchRecommendations() {
   //   const token = localStorage.getItem("token");
   //   if (!token) {
@@ -368,8 +409,8 @@ export class HomePage implements OnInit {
         };
   
         this.recommendations = response.recommendations
-          .filter(rec => rec.page) // Filter out invalid entries
-          .map((rec: any) => {
+          .filter((rec: { page: any; }) => rec.page) // Filter out invalid entries
+          .map((rec: { page: string }) => {
             // Normalize the backend page name (replace underscores with hyphens)
             const normalizedBackendName = rec.page.toLowerCase().replace(/_/g, '-');
             
