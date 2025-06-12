@@ -205,24 +205,39 @@ export class HomePage implements OnInit {
           'hiv_and_pregnancy': 'hiv'
         };
 
+        // this.recommendations = response.recommendations
+        //   .filter((rec: { page: any; }) => rec.page) // Filter out invalid entries
+        //   .map((rec: { page: string }) => {
+        //     // Normalize the backend page name (replace underscores with hyphens)
+        //     const normalizedBackendName = rec.page.toLowerCase().replace(/_/g, '-');
+
+        //     // Get the correct route name (either from mapping or use normalized name)
+        //     const routeName = routeMapping[rec.page] || normalizedBackendName;
+
+        //     // Find the page ID
+        //     const pageId = this.pageMapInverse(routeName);
+
+        //     return {
+        //       title: this.formatTitle(routeName),
+        //       path: `/${routeName}`,
+        //       queryParams: { id: pageId || null }
+        //     };
+        //   });
         this.recommendations = response.recommendations
-          .filter((rec: { page: any; }) => rec.page) // Filter out invalid entries
-          .map((rec: { page: string }) => {
-            // Normalize the backend page name (replace underscores with hyphens)
-            const normalizedBackendName = rec.page.toLowerCase().replace(/_/g, '-');
+  .filter((rec: { page: any }) => rec.page)
+  .map((rec: { page: string }) => {
+    const pageKey = rec.page.toLowerCase().replace(/[-]/g, '_'); // normalize
 
-            // Get the correct route name (either from mapping or use normalized name)
-            const routeName = routeMapping[rec.page] || normalizedBackendName;
+    // Get pageId from pageMap
+    const pageId = Object.entries(this.pageMap).find(([id, name]) => name === pageKey)?.[0];
 
-            // Find the page ID
-            const pageId = this.pageMapInverse(routeName);
+    return {
+      title: this.formatTitle(pageKey),
+      path: `/${pageKey}`,
+      queryParams: { id: pageId ? Number(pageId) : null }
+    };
+  });
 
-            return {
-              title: this.formatTitle(routeName),
-              path: `/${routeName}`,
-              queryParams: { id: pageId || null }
-            };
-          });
       },
       (error) => {
         console.error("Error fetching recommendations:", error);
