@@ -75,14 +75,14 @@ export const routes: Routes = [
     path: 'ending-hiv-stigma',
     loadComponent: () => import('./pages/ending-hiv-stigma/ending-hiv-stigma.page').then( m => m.EndingHivStigmaPage)
   },
-  // {
-  //   path: 'hiv-youth',
-  //   loadComponent: () => import('./pages/hiv-youth/hiv-youth.page').then( m => m.HivYouthPage)
-  // },
   {
-    path: 'hiv-and-youth',
-    loadComponent: () => import('./pages/hiv-youth/hiv-youth.page').then(m => m.HivYouthPage)
+    path: 'hiv-youth',
+    loadComponent: () => import('./pages/hiv-youth/hiv-youth.page').then( m => m.HivYouthPage)
   },
+  // {
+  //   path: 'hiv-and-youth',
+  //   loadComponent: () => import('./pages/hiv-youth/hiv-youth.page').then(m => m.HivYouthPage)
+  // },
   {
     path: 'staying-healthy',
     loadComponent: () => import('./pages/staying-healthy/staying-healthy.page').then( m => m.StayingHealthyPage)
