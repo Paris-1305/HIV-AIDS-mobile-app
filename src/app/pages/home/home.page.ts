@@ -1,4 +1,3 @@
-
 // import { Component, OnInit } from '@angular/core';
 // import { CommonModule } from '@angular/common';
 // import { FormsModule } from '@angular/forms';
@@ -212,18 +211,21 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
- import { AuthService } from '../../services/auth.service';
- import { RecommendationService } from '../../services/recommendation.service';
- import { 
-  IonHeader, 
-  IonToolbar, 
-  IonTitle, 
-  IonContent, 
-  IonButton, 
-  IonIcon, 
-  IonSearchbar, 
-  IonList, 
-  IonItem, 
+import { AuthService } from '../../services/auth.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RecommendationService } from '../../services/recommendation.service';
+
+
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonIcon,
+  IonSearchbar,
+  IonList,
+  IonItem,
   IonLabel,
   IonCard,
   IonCardHeader,
@@ -232,39 +234,40 @@ import { FormsModule } from '@angular/forms';
   IonGrid,
   IonRow,
   IonCol,
-  IonCardSubtitle
+  IonCardSubtitle, IonButtons
 } from '@ionic/angular/standalone';
 import { jwtDecode } from "jwt-decode";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
-  providers: [AuthService,RecommendationService],
+  providers: [AuthService, RecommendationService],
   styleUrls: ['./home.page.scss'],
-  imports: [
-        CommonModule, 
-        FormsModule, 
-        RouterModule, 
-        HttpClientModule, 
-        IonHeader,
-        IonToolbar,
-        IonTitle,
-        IonContent,
-        IonButton,
-        IonIcon,
-        IonSearchbar,
-        IonList,
-        IonItem,
-        IonLabel,
-        IonCard,
-        IonCardHeader,
-        IonCardTitle,
-        IonCardContent,
-        IonGrid,
-        IonRow,
-        IonCol,
-        IonCardSubtitle
-      ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [IonButtons,
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    HttpClientModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonIcon,
+    IonSearchbar,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonCardSubtitle, CommonModule,
+  ]
 })
 export class HomePage implements OnInit {
   searchQuery: string = '';
@@ -322,7 +325,7 @@ export class HomePage implements OnInit {
     private router: Router,
     public authService: AuthService,
     private recommendationService: RecommendationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.fetchRecommendations();
@@ -379,22 +382,22 @@ export class HomePage implements OnInit {
       console.error("No authentication token found!");
       return;
     }
-  
+
     const decodedToken: any = jwtDecode(token);
     const userId = decodedToken?.userId;
-  
+
     if (!userId) {
       console.error("Invalid token: userId not found");
       return;
     }
-  
+
     this.recommendationService.getRecommendedPages(userId).subscribe(
       (response: any) => {
         if (!response.recommendations || response.recommendations.length === 0) {
           this.recommendations = [];
           return;
         }
-  
+
         // Create normalized mapping from backend names to our route names
         const routeMapping: { [key: string]: string } = {
           'hiv_testing': 'testing',
@@ -407,19 +410,19 @@ export class HomePage implements OnInit {
           'hiv_and_youth': 'hiv-and-youth',
           'hiv_and_pregnancy': 'hiv'
         };
-  
+
         this.recommendations = response.recommendations
           .filter((rec: { page: any; }) => rec.page) // Filter out invalid entries
           .map((rec: { page: string }) => {
             // Normalize the backend page name (replace underscores with hyphens)
             const normalizedBackendName = rec.page.toLowerCase().replace(/_/g, '-');
-            
+
             // Get the correct route name (either from mapping or use normalized name)
             const routeName = routeMapping[rec.page] || normalizedBackendName;
-            
+
             // Find the page ID
             const pageId = this.pageMapInverse(routeName);
-  
+
             return {
               title: this.formatTitle(routeName),
               path: `/${routeName}`,
@@ -432,7 +435,7 @@ export class HomePage implements OnInit {
       }
     );
   }
-  
+
   // Helper function to find ID from route name
   pageMapInverse(routeName: string): number | null {
     for (const [id, name] of Object.entries(this.pageMap)) {
