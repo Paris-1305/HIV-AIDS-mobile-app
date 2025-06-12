@@ -127,7 +127,7 @@ nameToIdMap: Record<string, number> = {};
 
 // maps backend key → actual route path (hyphen vs underscore)
 routeMap: Record<string,string> = {
-  understanding_hiv_and_aids: 'hiv-basics',
+  understanding_hiv_and_aids: 'hiv_basics',
   hiv_treatment:        'treatment',
   hiv_prevention:       'prevention',
   hiv_testing:          'testing',
