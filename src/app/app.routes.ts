@@ -80,7 +80,7 @@ export const routes: Routes = [
   //   loadComponent: () => import('./pages/hiv-youth/hiv-youth.page').then( m => m.HivYouthPage)
   // },
   {
-    path: 'hiv_and_youth',
+    path: 'hiv-and-youth',
     loadComponent: () => import('./pages/hiv-youth/hiv-youth.page').then(m => m.HivYouthPage)
   },
   {
