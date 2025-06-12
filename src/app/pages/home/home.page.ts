@@ -1,6 +1,5 @@
 
 
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -196,14 +195,13 @@ export class HomePage implements OnInit {
         // Create normalized mapping from backend names to our route names
         const routeMapping: { [key: string]: string } = {
           'hiv_testing': 'testing',
-          'understanding_hiv_and_aids': 'hiv_basics',
+          'understanding_hiv_and_aids': 'understanding-hiv-and-aids',
           'hiv_and_stigma': 'hiv-and-stigma',
-          'staying_healthy_with_hiv':'staying-healthy',
           'safe_sex_practices': 'safe-sex-practices',
           'ending_hiv_stigma': 'ending-hiv-stigma',
           'support_people_with_hiv': 'support-people-with-hiv',
           'hiv_and_womens_health': 'hiv-and-womens-health',
-          'hiv_and_youth': 'hiv-youth',
+          'hiv_and_youth': 'hiv-and-youth',
           'hiv_and_pregnancy': 'hiv'
         };
 
