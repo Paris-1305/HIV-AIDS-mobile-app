@@ -121,9 +121,43 @@ export class HomePage implements OnInit {
     private recommendationService: RecommendationService
   ) { }
 
-  ngOnInit() {
-    this.fetchRecommendations();
-  }
+  // ngOnInit() {
+  //   this.fetchRecommendations();
+  // }
+  nameToIdMap: { [key: string]: number } = {};
+ngOnInit() {
+  // Build reverse map from your numeric pageMap
+  Object.entries(this.pageMap).forEach(([id, name]) => {
+    this.nameToIdMap[name] = Number(id);
+  });
+  this.fetchRecommendations();
+}
+fetchRecommendations() {
+  const token = localStorage.getItem("token");
+  if (!token) { return console.error("No token"); }
+  const decoded: any = jwtDecode(token);
+  if (!decoded?.userId) { return console.error("No userId"); }
+
+  this.recommendationService.getRecommendedPages(decoded.userId)
+    .subscribe({
+      next: (res: any) => {
+        this.recommendations = res.recommendations
+          .filter((r: any) => r.page)
+          .map((r: { page: string; }) => {
+            // rec.page already matches backend getPageNameFromId values
+            const pageKey = r.page; 
+            const pageId = this.nameToIdMap[pageKey] ?? null;
+
+            return {
+              title: this.formatTitle(pageKey),
+              path: `/${pageKey.replace(/_/g, '-')}`,  
+              queryParams: { id: pageId }
+            };
+          });
+      },
+      error: console.error
+    });
+}
 
   // fetchRecommendations() {
   //   const token = localStorage.getItem("token");
@@ -170,80 +204,66 @@ export class HomePage implements OnInit {
   //     }
   //   );
   // }
-  fetchRecommendations() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No authentication token found!");
-      return;
-    }
+  // fetchRecommendations() {
+  //   const token = localStorage.getItem("token");
+  //   if (!token) {
+  //     console.error("No authentication token found!");
+  //     return;
+  //   }
 
-    const decodedToken: any = jwtDecode(token);
-    const userId = decodedToken?.userId;
+  //   const decodedToken: any = jwtDecode(token);
+  //   const userId = decodedToken?.userId;
 
-    if (!userId) {
-      console.error("Invalid token: userId not found");
-      return;
-    }
+  //   if (!userId) {
+  //     console.error("Invalid token: userId not found");
+  //     return;
+  //   }
 
-    this.recommendationService.getRecommendedPages(userId).subscribe(
-      (response: any) => {
-        if (!response.recommendations || response.recommendations.length === 0) {
-          this.recommendations = [];
-          return;
-        }
+  //   this.recommendationService.getRecommendedPages(userId).subscribe(
+  //     (response: any) => {
+  //       if (!response.recommendations || response.recommendations.length === 0) {
+  //         this.recommendations = [];
+  //         return;
+  //       }
 
-        // Create normalized mapping from backend names to our route names
-        const routeMapping: { [key: string]: string } = {
-          'hiv_testing': 'testing',
-          'understanding_hiv_and_aids': 'understanding-hiv-and-aids',
-          'hiv_and_stigma': 'hiv-and-stigma',
-          'safe_sex_practices': 'safe-sex-practices',
-          'ending_hiv_stigma': 'ending-hiv-stigma',
-          'support_people_with_hiv': 'support-people-with-hiv',
-          'hiv_and_womens_health': 'hiv-and-womens-health',
-          'hiv_and_youth': 'hiv-and-youth',
-          'hiv_and_pregnancy': 'hiv'
-        };
+  //       // Create normalized mapping from backend names to our route names
+  //       const routeMapping: { [key: string]: string } = {
+  //         'hiv_testing': 'testing',
+  //         'understanding_hiv_and_aids': 'understanding-hiv-and-aids',
+  //         'hiv_and_stigma': 'hiv-and-stigma',
+  //         'safe_sex_practices': 'safe-sex-practices',
+  //         'ending_hiv_stigma': 'ending-hiv-stigma',
+  //         'support_people_with_hiv': 'support-people-with-hiv',
+  //         'hiv_and_womens_health': 'hiv-and-womens-health',
+  //         'hiv_and_youth': 'hiv-and-youth',
+  //         'hiv_and_pregnancy': 'hiv'
+  //       };
 
-        // this.recommendations = response.recommendations
-        //   .filter((rec: { page: any; }) => rec.page) // Filter out invalid entries
-        //   .map((rec: { page: string }) => {
-        //     // Normalize the backend page name (replace underscores with hyphens)
-        //     const normalizedBackendName = rec.page.toLowerCase().replace(/_/g, '-');
+  //       this.recommendations = response.recommendations
+  //         .filter((rec: { page: any; }) => rec.page) // Filter out invalid entries
+  //         .map((rec: { page: string }) => {
+  //           // Normalize the backend page name (replace underscores with hyphens)
+  //           const normalizedBackendName = rec.page.toLowerCase().replace(/_/g, '-');
 
-        //     // Get the correct route name (either from mapping or use normalized name)
-        //     const routeName = routeMapping[rec.page] || normalizedBackendName;
+  //           // Get the correct route name (either from mapping or use normalized name)
+  //           const routeName = routeMapping[rec.page] || normalizedBackendName;
 
-        //     // Find the page ID
-        //     const pageId = this.pageMapInverse(routeName);
+  //           // Find the page ID
+  //           const pageId = this.pageMapInverse(routeName);
 
-        //     return {
-        //       title: this.formatTitle(routeName),
-        //       path: `/${routeName}`,
-        //       queryParams: { id: pageId || null }
-        //     };
-        //   });
-        this.recommendations = response.recommendations
-  .filter((rec: { page: any }) => rec.page)
-  .map((rec: { page: string }) => {
-    const pageKey = rec.page.toLowerCase().replace(/[-]/g, '_'); // normalize
-
-    // Get pageId from pageMap
-    const pageId = Object.entries(this.pageMap).find(([id, name]) => name === pageKey)?.[0];
-
-    return {
-      title: this.formatTitle(pageKey),
-      path: `/${pageKey}`,
-      queryParams: { id: pageId ? Number(pageId) : null }
-    };
-  });
-
-      },
-      (error) => {
-        console.error("Error fetching recommendations:", error);
-      }
-    );
-  }
+  //           return {
+  //             title: this.formatTitle(routeName),
+  //             path: `/${routeName}`,
+  //             queryParams: { id: pageId || null }
+  //           };
+  //         });
+      
+  //     },
+  //     (error) => {
+  //       console.error("Error fetching recommendations:", error);
+  //     }
+  //   );
+  // }
 
   // Helper function to find ID from route name
   pageMapInverse(routeName: string): number | null {
