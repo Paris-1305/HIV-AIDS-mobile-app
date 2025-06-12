@@ -106,7 +106,7 @@ export class HomePage implements OnInit {
   ) { }
 // maps numeric IDs → backend keys
 pageMap = {
-  15: 'hiv_basics',
+  15: 'understanding_hiv_and_aids',
   13: 'hiv_treatment',
   6:  'hiv_prevention',
   12: 'hiv_testing',
@@ -127,13 +127,13 @@ nameToIdMap: Record<string, number> = {};
 
 // maps backend key → actual route path (hyphen vs underscore)
 routeMap: Record<string,string> = {
-  hiv_basics:           'hiv-basics',
+  understanding_hiv_and_aids: 'hiv-basics',
   hiv_treatment:        'treatment',
   hiv_prevention:       'prevention',
   hiv_testing:          'testing',
-  living_with_hiv:      'living-with-hiv',
+  living_with_hiv:      'living_with_hiv',
   faq_section:          'faqsection',
-  hiv_and_stigma:       'hiv-stigma',
+  hiv_and_stigma:       'hiv_stigma',
   hiv_and_pregnancy:    'hiv',
   hiv_and_womens_health:'hiv-women-health',
   support_people_with_hiv:'support-people-hiv',
