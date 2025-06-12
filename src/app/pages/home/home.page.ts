@@ -407,7 +407,7 @@ export class HomePage implements OnInit {
           'ending_hiv_stigma': 'ending-hiv-stigma',
           'support_people_with_hiv': 'support-people-with-hiv',
           'hiv_and_womens_health': 'hiv-and-womens-health',
-          'hiv_and_youth': 'hiv-and-youth',
+          'hiv_and_youth': 'hiv_and_youth',
           'hiv_and_pregnancy': 'hiv'
         };
 
